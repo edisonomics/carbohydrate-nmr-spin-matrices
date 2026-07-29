@@ -11,6 +11,32 @@ The script exports `SPINACH_ROOT`, `EDISON_DATA_ROOT`,
 repository, so the setup works regardless of the directory from which it is
 sourced.
 
+## Dependencies
+
+Install these before running the workflow:
+
+- **MATLAB** with the toolboxes required by Spinach (including Parallel
+  Computing and Optimization Toolbox).
+- **Spinach 2.10.1**, downloaded separately from the official
+  [Spinach releases](https://github.com/IlyaKuprov/Spinach/releases).
+- **Python 3.11** and the pinned packages in
+  [`environment.sucrose.yml`](environment.sucrose.yml).
+
+Spinach is a third-party MATLAB library and is not included in this Git
+repository. Download and extract the `Spinach-2.10.1` release into
+`lib/Spinach-2.10.1`, or override `SPINACH_ROOT` after loading the repository
+paths for an installation elsewhere:
+
+```bash
+source ./setup_paths.sh
+export SPINACH_ROOT="$HOME/Spinach-2.10.1"
+```
+
+The `lib/` directory is intentionally ignored by Git, so the Spinach source
+and local experimental data are never committed. See the
+[Spinach installation guide](https://spindynamics.org/wiki/index.php?title=Installation)
+for MATLAB path and version requirements.
+
 ## Prepare the official sucrose spectra
 
 The reproducible Bruker `1r` loading, DSS referencing, and fit-window masking
