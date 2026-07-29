@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local NMR datasets are not distributed with this repository.
+# Download the appropriate Bruker dataset from NAN and import it locally.
+/data/*
+# Keep the data-directory instructions visible in GitHub.
+!/data/README.md
+# Keep local caches and operating-system metadata out of version control.
+/.mplconfig/
+.DS_Store
