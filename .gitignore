@@ -222,6 +222,15 @@ __marimo__/
 /data/*
 # Keep the data-directory instructions visible in GitHub.
 !/data/README.md
+
+# Generated simulations, fits, and plots remain local.
+/outputs/*
+
 # Keep local caches and operating-system metadata out of version control.
 /.mplconfig/
 .DS_Store
+
+# Spinach is third-party software; keep a local installation out of GitHub.
+!/lib/
+/lib/*
+!/lib/README.md
