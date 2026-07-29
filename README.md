@@ -47,6 +47,28 @@ conda activate sucrose
 You only need to create the environment once. In later sessions, use
 `conda activate sucrose` before running the Python commands.
 
+### Windows note
+
+Windows students should use the **Anaconda Prompt** installed with Miniconda.
+The Python workflow is the same; use Windows paths and replace `/` with `\\`
+if needed:
+
+```text
+cd C:\path\to\carbohydrate-nmr-spin-matrices
+conda activate sucrose
+python src\sucrose\prepare_sucrose_spectra.py
+```
+
+The `.sh` launcher and `source ./setup_paths.sh` require a Unix-like shell.
+For Spinach, either run them through **WSL2** or **Git Bash**, or set the
+Spinach path in the Anaconda Prompt before launching MATLAB:
+
+```bat
+set SPINACH_ROOT=C:\path\to\carbohydrate-nmr-spin-matrices\lib\Spinach-2.10.1
+```
+
+The path must contain `kernel`, `etc`, `experiments`, and `interfaces`.
+
 Spinach is a third-party MATLAB library and is not included in this Git
 repository. Download and extract the `Spinach-2.10.1` release **inside this
 repository's `lib/` folder**. The expected layout is:
