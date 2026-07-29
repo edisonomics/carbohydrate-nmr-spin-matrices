@@ -19,8 +19,33 @@ Install these before running the workflow:
   Computing and Optimization Toolbox).
 - **Spinach 2.10.1**, downloaded separately from the official
   [Spinach releases](https://github.com/IlyaKuprov/Spinach/releases).
-- **Python 3.11** and the pinned packages in
+- **Miniconda**, which installs Python and the pinned packages in
   [`environment.sucrose.yml`](environment.sucrose.yml).
+
+### Install Miniconda (one time)
+
+If Terminal says `conda: command not found`, install Miniconda from the
+official [Miniconda download page](https://docs.conda.io/miniconda.html).
+On macOS, open Terminal and run `uname -m`: choose **Apple Silicon/arm64** if
+it prints `arm64`, or **Intel/x86_64** if it prints `x86_64`. The graphical
+installer is the simplest choice. Allow the installer to initialize your
+shell, then close and reopen Terminal.
+
+Confirm that it worked:
+
+```bash
+conda --version
+```
+
+From the repository root, create this project's environment:
+
+```bash
+conda env create -f environment.sucrose.yml
+conda activate sucrose
+```
+
+You only need to create the environment once. In later sessions, use
+`conda activate sucrose` before running the Python commands.
 
 Spinach is a third-party MATLAB library and is not included in this Git
 repository. Download and extract the `Spinach-2.10.1` release **inside this
