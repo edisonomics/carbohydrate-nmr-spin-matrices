@@ -23,9 +23,24 @@ Install these before running the workflow:
   [`environment.sucrose.yml`](environment.sucrose.yml).
 
 Spinach is a third-party MATLAB library and is not included in this Git
-repository. Download and extract the `Spinach-2.10.1` release into
-`lib/Spinach-2.10.1`, or override `SPINACH_ROOT` after loading the repository
-paths for an installation elsewhere:
+repository. Download and extract the `Spinach-2.10.1` release **inside this
+repository's `lib/` folder**. The expected layout is:
+
+```text
+carbohydrate-nmr-spin-matrices/
+└── lib/
+    └── Spinach-2.10.1/
+        ├── kernel/
+        ├── etc/
+        ├── experiments/
+        └── interfaces/
+```
+
+If `lib/Spinach-2.10.1/kernel` exists, the installation is in the right
+place. If the archive creates an extra nested folder, move the inner
+`Spinach-2.10.1` directory up one level. Alternatively, override
+`SPINACH_ROOT` after loading the repository paths for an installation
+elsewhere:
 
 ```bash
 source ./setup_paths.sh
