@@ -99,6 +99,12 @@ and local experimental data are never committed. See the
 [Spinach installation guide](https://spindynamics.org/wiki/index.php?title=Installation)
 for MATLAB path and version requirements.
 
+### License
+
+The original code and documentation in this repository are released under the
+[MIT License](LICENSE). Spinach and any external NMR datasets are separate
+dependencies and retain their own licenses or usage terms.
+
 ## Prepare the official sucrose spectra
 
 The reproducible Bruker `1r` loading, DSS referencing, and fit-window masking
