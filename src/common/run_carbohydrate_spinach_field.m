@@ -26,8 +26,16 @@ if isempty(row)
 end
 
 spinach_root = getenv('SPINACH_ROOT');
-if isempty(spinach_root)
-    error('Set SPINACH_ROOT before running Spinach.');
+if isempty(spinach_root) || exist(spinach_root, 'dir') ~= 7
+    bundled_spinach = fullfile(repo_dir, 'lib', 'Spinach-2.10.1');
+    if exist(bundled_spinach, 'dir') == 7
+        spinach_root = bundled_spinach;
+        setenv('SPINACH_ROOT', spinach_root);
+        fprintf('SPINACH_ROOT not set; using bundled Spinach: %s\n', spinach_root);
+    else
+        error(['Spinach not found. Install it at %s or set SPINACH_ROOT.'], ...
+            bundled_spinach);
+    end
 end
 
 p.molecule = molecule;
