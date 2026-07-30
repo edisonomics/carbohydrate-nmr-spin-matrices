@@ -43,12 +43,16 @@ conda activate sucrose
 
 ## 3. Install Spinach
 
-MATLAB and the Spinach-required toolboxes must be installed separately. The
-tested MATLAB setup requires:
+MATLAB and the Spinach-required toolboxes must be installed separately. For
+Spinach 2.10.1, the tested setup requires **MATLAB R2024a or later** (the full
+desktop product; MATLAB Runtime is not sufficient) and:
 
-- MATLAB (the full desktop product; MATLAB Runtime is not sufficient).
-- **Parallel Computing Toolbox**, used by Spinach worker pools.
-- **Optimization Toolbox**, used for matrix and nuisance-parameter fitting.
+- **Parallel Computing Toolbox**
+- **Deep Learning Toolbox**
+- **Reinforcement Learning Toolbox**
+- **Optimization Toolbox**
+- **Statistics and Machine Learning Toolbox**
+- **Mapping Toolbox**
 
 The repository installer downloads the tested Spinach 2.10.1 release into the
 ignored `lib/` directory:

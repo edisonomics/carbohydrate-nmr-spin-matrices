@@ -85,10 +85,15 @@ cp -R /mnt/c/Users/YourName/Desktop/my_nmr_data data/my_molecule
 ## 6. MATLAB and Spinach on Windows
 
 WSL2 does not install MATLAB. The Spinach stage requires a licensed, full
-MATLAB installation (MATLAB Runtime is not sufficient), plus:
+**MATLAB R2024a or later** installation (MATLAB Runtime is not sufficient),
+plus these Spinach 2.10.1 toolboxes:
 
-- **Parallel Computing Toolbox**, used by Spinach worker pools.
-- **Optimization Toolbox**, used for matrix and nuisance-parameter fitting.
+- **Parallel Computing Toolbox**
+- **Deep Learning Toolbox**
+- **Reinforcement Learning Toolbox**
+- **Optimization Toolbox**
+- **Statistics and Machine Learning Toolbox**
+- **Mapping Toolbox**
 
 You may either install MATLAB for Linux inside WSL2, or use the Windows
 MATLAB application separately for the `.m` workflows. If MATLAB is installed

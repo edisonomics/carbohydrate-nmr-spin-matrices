@@ -40,8 +40,10 @@ sourced.
 
 Install these before running the workflow:
 
-- **MATLAB** with the toolboxes required by Spinach (including Parallel
-  Computing and Optimization Toolbox).
+- **MATLAB R2024a or later** with the toolboxes required by Spinach 2.10.1:
+  Parallel Computing Toolbox, Deep Learning Toolbox, Reinforcement Learning
+  Toolbox, Optimization Toolbox, Statistics and Machine Learning Toolbox, and
+  Mapping Toolbox.
 - **Spinach 2.10.1**, downloaded separately from the official
   [Spinach releases](https://github.com/IlyaKuprov/Spinach/releases).
 - **Miniconda**, which installs Python and the pinned packages in
