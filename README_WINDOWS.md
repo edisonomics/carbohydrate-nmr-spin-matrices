@@ -103,5 +103,11 @@ scripts from the Windows MATLAB interface using the repository path.
 The Bash launcher is intended for a MATLAB executable available inside WSL2:
 
 ```bash
+export MATLAB_BIN="$HOME/MATLAB/R2024a/bin/matlab"
 ./run_spinach_field.sh sucrose
 ```
+
+Change the path to match your Linux MATLAB installation. If MATLAB is
+installed only as a Windows application, do not set a Linux `MATLAB_BIN`;
+complete the Python workflow in WSL2 and run the MATLAB `.m` files from the
+Windows MATLAB interface instead.

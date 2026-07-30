@@ -88,4 +88,13 @@ After MATLAB is installed and `source ./setup_paths.sh` has been run:
 ```
 
 The launcher uses the MATLAB executable found on the system. If MATLAB is not
-on `PATH`, set `MATLAB_BIN` to its executable before running the launcher.
+on `PATH`, set `MATLAB_BIN` to its executable before running the launcher. For
+example, for a standard MATLAB R2024a application installation:
+
+```bash
+export MATLAB_BIN="/Applications/MATLAB_R2024a.app/bin/matlab"
+./run_spinach_field.sh sucrose
+```
+
+Change `R2024a` to the release installed on your Mac. You can check the path
+with `ls /Applications/MATLAB_*.app/bin/matlab`.
