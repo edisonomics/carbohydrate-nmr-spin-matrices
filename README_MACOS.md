@@ -2,11 +2,16 @@
 
 This guide is for students using macOS. Run the commands from Terminal.
 
-## 1. Clone the repository
+## 1. Download the repository
+
+Open the repository in a browser:
+<https://github.com/edisonomics/carbohydrate-nmr-spin-matrices>. Select the
+green **Code** button, choose **Download ZIP**, and double-click the ZIP in
+your Downloads folder. Move the extracted folder to your Desktop if desired,
+then open Terminal and run (adjust the path if you chose another location):
 
 ```bash
-git clone https://github.com/edisonomics/carbohydrate-nmr-spin-matrices.git
-cd carbohydrate-nmr-spin-matrices
+cd ~/Desktop/carbohydrate-nmr-spin-matrices-main
 ```
 
 ## 2. Install Miniconda

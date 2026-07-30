@@ -1,5 +1,25 @@
 # Edison Lab spin-matrix repository
 
+## Download the project without Git
+
+Students can download the project in a web browser; no Git installation or
+SSH key is required.
+
+1. Open the repository on GitHub: <https://github.com/edisonomics/carbohydrate-nmr-spin-matrices>.
+2. Click the green **Code** button.
+3. Choose **Download ZIP**.
+4. Open your Downloads folder and double-click
+   `carbohydrate-nmr-spin-matrices-main.zip` to extract it.
+5. Continue with the setup guide for your computer:
+   [macOS](README_MACOS.md) or [Windows through WSL2](README_WINDOWS.md).
+
+![GitHub Code menu with Download ZIP highlighted](docs/images/github-download-zip.png)
+
+After extraction, the project folder is normally named
+`carbohydrate-nmr-spin-matrices-main`. Open Terminal (macOS) or Ubuntu/WSL2
+(Windows), change into that folder, and run the commands in the appropriate
+guide. Do not run the commands from inside the ZIP file itself.
+
 ## Choose your platform
 
 - [macOS setup](README_MACOS.md)

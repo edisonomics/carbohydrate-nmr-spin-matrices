@@ -20,7 +20,7 @@ Install the small command-line utilities used by the setup scripts:
 
 ```bash
 sudo apt update
-sudo apt install -y git curl unzip
+sudo apt install -y curl unzip
 ```
 
 ## 2. Install Miniconda inside Ubuntu
@@ -34,15 +34,22 @@ Ubuntu. Confirm that Conda is available:
 conda --version
 ```
 
-## 3. Clone the repository inside WSL2
+## 3. Download and open the repository inside WSL2
 
-Keep the working copy in the Linux home directory for better performance:
+In a Windows browser, open
+<https://github.com/edisonomics/carbohydrate-nmr-spin-matrices>, click the
+green **Code** button, choose **Download ZIP**, and extract the ZIP in your
+Windows Downloads folder. Then copy the extracted folder into your WSL2 home
+directory (replace `YourName` with your Windows username):
 
 ```bash
 cd ~
-git clone https://github.com/edisonomics/carbohydrate-nmr-spin-matrices.git
-cd carbohydrate-nmr-spin-matrices
+cp -R /mnt/c/Users/YourName/Downloads/carbohydrate-nmr-spin-matrices-main .
+cd carbohydrate-nmr-spin-matrices-main
 ```
+
+If the folder was extracted somewhere else, replace the `/mnt/c/...` path.
+Keeping the working copy in the Linux home directory improves performance.
 
 Create the project environment:
 
