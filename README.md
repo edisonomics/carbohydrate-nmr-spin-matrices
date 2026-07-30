@@ -47,6 +47,29 @@ conda activate sucrose
 You only need to create the environment once. In later sessions, use
 `conda activate sucrose` before running the Python commands.
 
+### Install Spinach automatically (recommended)
+
+The repository includes installers that download the tested Spinach 2.10.1
+release into the ignored `lib/` folder:
+
+macOS, Linux, WSL2, or Git Bash:
+
+```bash
+./scripts/install_spinach.sh
+source ./setup_paths.sh
+```
+
+Windows PowerShell:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install_spinach.ps1
+$env:SPINACH_ROOT = "$PWD\lib\Spinach-2.10.1"
+```
+
+The installer is safe to rerun: it reports success if the expected
+installation is already present. It refuses to overwrite an incomplete
+installation so that a partial download is not mistaken for a valid one.
+
 ### Windows note
 
 Windows students should use the **Anaconda Prompt** installed with Miniconda.
