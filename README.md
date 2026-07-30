@@ -1,5 +1,10 @@
 # Edison Lab spin-matrix repository
 
+## Choose your platform
+
+- [macOS setup](README_MACOS.md)
+- [Windows setup through WSL2](README_WINDOWS.md)
+
 Load the repository paths before running MATLAB workflows:
 
 ```bash
@@ -59,38 +64,12 @@ macOS, Linux, WSL2, or Git Bash:
 source ./setup_paths.sh
 ```
 
-Windows PowerShell:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\install_spinach.ps1
-$env:SPINACH_ROOT = "$PWD\lib\Spinach-2.10.1"
-```
+Windows users should follow [README_WINDOWS.md](README_WINDOWS.md) and run
+the Bash installer inside WSL2.
 
 The installer is safe to rerun: it reports success if the expected
 installation is already present. It refuses to overwrite an incomplete
 installation so that a partial download is not mistaken for a valid one.
-
-### Windows note
-
-Windows students should use the **Anaconda Prompt** installed with Miniconda.
-The Python workflow is the same; use Windows paths and replace `/` with `\\`
-if needed:
-
-```text
-cd C:\path\to\carbohydrate-nmr-spin-matrices
-conda activate sucrose
-python src\sucrose\prepare_sucrose_spectra.py
-```
-
-The `.sh` launcher and `source ./setup_paths.sh` require a Unix-like shell.
-For Spinach, either run them through **WSL2** or **Git Bash**, or set the
-Spinach path in the Anaconda Prompt before launching MATLAB:
-
-```bat
-set SPINACH_ROOT=C:\path\to\carbohydrate-nmr-spin-matrices\lib\Spinach-2.10.1
-```
-
-The path must contain `kernel`, `etc`, `experiments`, and `interfaces`.
 
 Spinach is a third-party MATLAB library and is not included in this Git
 repository. Download and extract the `Spinach-2.10.1` release **inside this
