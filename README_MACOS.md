@@ -14,6 +14,10 @@ then open Terminal and run (adjust the path if you chose another location):
 cd ~/Desktop/carbohydrate-nmr-spin-matrices-main
 ```
 
+macOS Terminal normally uses **zsh**. That is fine for this project: run the
+commands in zsh, and execute the included Bash scripts directly. You do not
+need to switch shells or type `bash` before each command.
+
 ## 2. Install Miniconda
 
 Download the graphical installer from the official
