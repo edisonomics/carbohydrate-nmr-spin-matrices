@@ -276,3 +276,18 @@ field-specific acquisition values are no longer embedded in the MATLAB code.
 For another carbohydrate, point the extractor at that carbohydrate's Bruker
 experiment directories and use the resulting metadata table in the analogous
 runner.
+
+## Optional nuisance diagnostic
+
+After producing the fixed 600/900 MHz candidate matrix, test whether a small
+additive baseline is limiting agreement without changing the matrix:
+
+```bash
+python3 src/sucrose/bayes_astro/nuisance_diagnostic.py \
+  --candidate-matrix outputs/sucrose/sucrose_matrix_fit_600_900.txt
+```
+
+The script compares no-baseline, constant-baseline, and weak quadratic-
+baseline fits for all four fields. It writes audit traces, metrics, and a plot
+under `outputs/sucrose/nuisance_test/`. This is diagnostic only; accept a
+correction only if the blind 800/1100 MHz results improve.

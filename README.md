@@ -141,6 +141,21 @@ python3 src/sucrose/prepare_sucrose_spectra.py
 Prepared full and fit-only spectra are written to
 `outputs/sucrose/prepared`. See `src/sucrose/README.md` for details.
 
+### Optional nuisance-subtraction diagnostic
+
+To test whether a weak additive baseline is limiting the fit, run the
+non-destructive diagnostic after generating the refined 600/900 MHz matrix:
+
+```bash
+python3 src/sucrose/bayes_astro/nuisance_diagnostic.py \
+  --candidate-matrix outputs/sucrose/sucrose_matrix_fit_600_900.txt
+```
+
+It compares no baseline, constant baseline, and weak quadratic baseline fits
+for 600/800/900/1100 MHz. Results are written to
+`outputs/sucrose/nuisance_test`; the original spectra, matrix, and quality gate
+are not changed. Accept a correction only if the held-out fields improve.
+
 ## Run one Spinach field
 
 Students do not need to set MATLAB paths or choose a field manually. From the
