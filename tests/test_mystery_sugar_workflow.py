@@ -35,9 +35,10 @@ class MysterySugarScreenTests(unittest.TestCase):
 
     def synthetic_fields(self):
         ppm = self.np.linspace(3.0, 5.7, 4000)
-        y = (
-            self.np.exp(-((ppm - 5.182) / 0.0025) ** 2)
-            + 0.9 * self.np.exp(-((ppm - 4.564) / 0.0025) ** 2)
+        centers = [3.216, 3.312, 3.420, 3.512, 3.625, 3.916, 4.564, 5.182]
+        y = sum(
+            (1.0 - 0.04 * index) * self.np.exp(-((ppm - center) / 0.0025) ** 2)
+            for index, center in enumerate(centers)
         )
         return [
             {"field_mhz": 600.0, "ppm": ppm, "intensity": y},
@@ -53,13 +54,17 @@ class MysterySugarScreenTests(unittest.TestCase):
         self.assertAlmostEqual(clusters[1], 5.182, places=2)
 
     def test_xylose_candidate_ranks_above_other_reference_candidates(self):
-        ranked = self.screen.rank_candidates(self.synthetic_fields(), ROOT)
+        ranked = self.screen.rank_candidates(
+            self.synthetic_fields(), ROOT, enable_physics=False
+        )
         self.assertEqual(ranked[0]["candidate_id"], "d_xylose")
         self.assertTrue(ranked[0]["reference_available"])
         self.assertGreater(ranked[0]["mean_score"], 0.8)
 
     def test_screen_never_calls_one_d_identity_confirmed(self):
-        ranked = self.screen.rank_candidates(self.synthetic_fields(), ROOT)
+        ranked = self.screen.rank_candidates(
+            self.synthetic_fields(), ROOT, enable_physics=False
+        )
         report = self.screen.build_report(ROOT, "mystery_sugar", ranked)
         self.assertIn(report["status"], {"CANDIDATE", "REVIEW"})
         self.assertNotEqual(report["status"], "CONFIRMED")
@@ -123,10 +128,11 @@ class MysterySugarScreenTests(unittest.TestCase):
                 },
                 {
                     "candidate_id": "bmrb_bmse999998",
-                    "name": "No anomeric reference",
+                    "name": "Full-spectrum-only reference",
                     "review_status": "needs_review",
                     "selected_bmrb_entry": "bmse999998",
                     "reference_anomeric_centers_ppm": [],
+                    "reference_proton_shifts_ppm": [3.2, 3.6],
                 },
                 {
                     "candidate_id": "bmrb_bmse999999",
@@ -147,8 +153,57 @@ class MysterySugarScreenTests(unittest.TestCase):
 
         ids = {candidate["id"] for candidate in candidates}
         self.assertIn("bmrb_bmse999999", ids)
+        self.assertIn("bmrb_bmse999998", ids)
         self.assertNotIn("bmrb_bmse000015", ids)
-        self.assertNotIn("bmrb_bmse999998", ids)
+
+    def test_full_fingerprint_distinguishes_same_anomeric_centers(self):
+        base = {
+            "class": "test",
+            "reference_anomeric_centers_ppm": [4.564, 5.182],
+            "expected_anomeric_clusters": 2,
+            "forms": [],
+            "topology": "test",
+            "review_status": "needs_review",
+        }
+        matching = {
+            **base,
+            "id": "matching",
+            "name": "Matching",
+            "reference_proton_shifts_ppm": [
+                3.216, 3.312, 3.420, 3.512, 3.625, 3.916, 4.564, 5.182
+            ],
+        }
+        wrong_body = {
+            **base,
+            "id": "wrong",
+            "name": "Wrong body",
+            "reference_proton_shifts_ppm": [
+                3.05, 3.12, 3.28, 3.75, 4.05, 4.20, 4.564, 5.182
+            ],
+        }
+        good = self.screen.score_candidate(
+            matching, self.synthetic_fields(), ROOT, enable_physics=False
+        )
+        bad = self.screen.score_candidate(
+            wrong_body, self.synthetic_fields(), ROOT, enable_physics=False
+        )
+        self.assertGreater(good["mean_score"], bad["mean_score"] + 0.2)
+
+    def test_exact_matrix_shape_favors_xylose_for_real_mystery_spectra(self):
+        fields = self.screen.load_prepared(ROOT, "mystery_sugar")
+        library = self.screen.load_library()
+        xylose = next(item for item in library if item["id"] == "d_xylose")
+        glucose = next(item for item in library if item["id"] == "d_glucose")
+        xylose_result = self.screen.score_physics_model(xylose, fields, ROOT)
+        glucose_result = self.screen.score_physics_model(glucose, fields, ROOT)
+
+        self.assertIsNotNone(xylose_result)
+        self.assertIsNotNone(glucose_result)
+        self.assertGreater(
+            xylose_result["mean_multiplet_shape_score"],
+            glucose_result["mean_multiplet_shape_score"] + 0.5,
+        )
+        self.assertTrue(xylose_result["matrix_couplings"])
 
 
 if __name__ == "__main__":
