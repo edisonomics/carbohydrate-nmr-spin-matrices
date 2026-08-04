@@ -9,6 +9,8 @@ student spectra still supply the molecule-specific numbers.
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Any
 
 
@@ -17,6 +19,29 @@ BUBB_REFERENCE = {
     "doi": "10.1002/cmr.a.10080",
     "role": "chemical-interpretation-guidance",
 }
+
+KNOWLEDGE_PATH = Path(__file__).with_name("carbohydrate_nmr_knowledge.json")
+
+
+def _literature_patterns(profile_name: str) -> list[dict[str, Any]]:
+    """Read compatibility patterns from the auditable knowledge base."""
+
+    payload = json.loads(KNOWLEDGE_PATH.read_text(encoding="utf-8"))
+    patterns = []
+    for rule in payload["rules"]:
+        if rule.get("measurement") != "J1,2_hz":
+            continue
+        if profile_name not in rule.get("profiles", []):
+            continue
+        expected = rule.get("expected_range") or rule.get("implementation_range")
+        patterns.append({
+            "rule_id": rule["id"],
+            "form": rule["form"],
+            "range_hz": expected,
+            **({"typical_hz": rule["typical_value"]} if "typical_value" in rule else {}),
+        })
+    order = {"alpha": 0, "beta": 1}
+    return sorted(patterns, key=lambda item: order.get(item["form"], 99))
 
 # Companion sources are recorded as roles so the workflow can tell students
 # why a source is being used.  They are not treated as interchangeable numeric
@@ -77,10 +102,6 @@ PROFILES: dict[str, dict[str, Any]] = {
         "expected_model": "anomer_mixture",
         "minimum_components": 2,
         "structural_reporter_groups": ["H1"],
-        "anomeric_j_patterns_hz": [
-            {"form": "alpha", "range_hz": [2.0, 4.0]},
-            {"form": "beta", "range_hz": [7.0, 9.0]},
-        ],
         "possible_forms": ["alpha_pyranose", "beta_pyranose", "minor_furanose", "open_chain"],
         "notes": "Aqueous glucose commonly contains distinguishable alpha and beta forms; minor forms should be considered when residuals require them.",
     },
@@ -89,10 +110,6 @@ PROFILES: dict[str, dict[str, Any]] = {
         "expected_model": "anomer_mixture",
         "minimum_components": 2,
         "structural_reporter_groups": ["H1"],
-        "anomeric_j_patterns_hz": [
-            {"form": "alpha", "range_hz": [2.0, 4.0]},
-            {"form": "beta", "range_hz": [7.0, 9.0]},
-        ],
         "possible_forms": ["alpha_pyranose", "beta_pyranose", "furanose", "open_chain"],
         "notes": "Aldopentoses can have appreciable furanose populations; an alpha/beta-only model is a provisional starting point.",
     },
@@ -101,10 +118,6 @@ PROFILES: dict[str, dict[str, Any]] = {
         "expected_model": "anomer_mixture",
         "minimum_components": 2,
         "structural_reporter_groups": ["H1", "H2", "H3"],
-        "anomeric_j_patterns_hz": [
-            {"form": "alpha", "range_hz": [1.1, 2.1], "typical_hz": 1.6},
-            {"form": "beta", "range_hz": [0.4, 1.2], "typical_hz": 0.8},
-        ],
         "possible_forms": ["alpha_pyranose", "beta_pyranose", "minor_furanose", "open_chain"],
         "notes": "Treat alpha and beta forms as separate species unless the data demonstrate otherwise.",
     },
@@ -113,9 +126,6 @@ PROFILES: dict[str, dict[str, Any]] = {
         "expected_model": "single_molecule",
         "minimum_components": 1,
         "structural_reporter_groups": ["glucosyl H1"],
-        "anomeric_j_patterns_hz": [
-            {"form": "fixed_alpha_glucosyl", "range_hz": [2.0, 4.0]},
-        ],
         "possible_forms": ["fixed_glucose_anomer", "fixed_fructose_anomer"],
         "notes": "Sucrose has no free anomeric center for ordinary mutarotation; use one linked disaccharide model, not an alpha/beta mixture.",
     },
@@ -124,16 +134,8 @@ PROFILES: dict[str, dict[str, Any]] = {
 
 COMMON_CHECKS = {
     "anomeric_reporter": True,
-    "anomeric_proton_region_ppm": [4.4, 5.5],
-    "proton_crowding_ppm": [3.4, 4.0],
-    "acetyl_proton_region_ppm": [2.0, 2.1],
-    "methyl_proton_region_ppm": [1.1, 1.3],
     "use_2d_for_assignment": True,
     "warn_1d_splittings_are_not_automatically_J": True,
-    "j12_alpha_hz": [2.0, 4.0],
-    "j12_beta_hz": [7.0, 9.0],
-    "mannose_j12_alpha_typical_hz": 1.6,
-    "mannose_j12_beta_typical_hz": 0.8,
 }
 
 
@@ -151,6 +153,10 @@ def profile_for(molecule: str, config: dict[str, Any] | None = None) -> dict[str
     }))
     profile["molecule"] = molecule
     profile["bubb_profile"] = profile_name
+    profile["anomeric_j_patterns_hz"] = _literature_patterns(profile_name)
+    profile["literature_rule_ids"] = [
+        item["rule_id"] for item in profile["anomeric_j_patterns_hz"]
+    ]
     profile["guidance"] = dict(COMMON_CHECKS)
     profile["reference"] = dict(BUBB_REFERENCE)
     profile["companion_references"] = [dict(item) for item in RELATED_REFERENCES]

@@ -172,7 +172,8 @@ generic field wrapper once per prepared dataset. Results are written under
 ## Record carbohydrate chemistry evidence
 
 The seed workflow combines molecule-specific BMRB/GISSMO artifacts with
-machine-readable guidance from Bubb (2003) and companion assignment/coupling
+machine-readable, source-traceable guidance from Bubb (2003), Duus et al.
+(2000), and companion assignment/coupling
 references. It flags a flattened single-spin model when a reducing sugar
 should be represented as separate anomer components:
 

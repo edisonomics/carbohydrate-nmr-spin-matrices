@@ -406,19 +406,13 @@ def build_bubb_observations(fields: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def _range_score(value: float, expected_range: list[float]) -> float:
-    lower, upper = (float(expected_range[0]), float(expected_range[1]))
-    distance = max(lower - value, 0.0, value - upper)
-    return math.exp(-0.5 * (distance / 0.8) ** 2)
-
-
-def score_bubb_guidance(
+def score_literature_guidance(
     candidate: dict[str, Any],
     fields: list[dict[str, Any]],
     repo_root: Path,
     observations: dict[str, Any] | None = None,
 ) -> dict[str, Any] | None:
-    """Apply Bubb reporter-group rules without inventing assignments."""
+    """Apply cited Bubb/Duus rules without inventing assignments."""
 
     all_anomeric = _reference_all_anomeric_centers(repo_root, candidate)
     full_reference = _reference_full_proton_centers(repo_root, candidate)
@@ -428,11 +422,22 @@ def score_bubb_guidance(
     common_path = repo_root / "src" / "common"
     if str(common_path) not in sys.path:
         sys.path.insert(0, str(common_path))
-    from bubb_rules import BUBB_REFERENCE, profile_for  # noqa: PLC0415
+    from bubb_rules import profile_for  # noqa: PLC0415
+    from literature_rules import (  # noqa: PLC0415
+        coupling_rules_for_profile,
+        evidence_result,
+        indexed_rules,
+        load_knowledge,
+        range_score,
+        scoring_range,
+    )
 
     observations = observations or build_bubb_observations(fields)
     profile_name = candidate.get("bubb_profile")
     profile = profile_for(str(profile_name)) if profile_name else None
+    knowledge = load_knowledge()
+    rules_by_id = indexed_rules(knowledge)
+    rule_results: list[dict[str, Any]] = []
     visible_reference = [
         value for value in all_anomeric if _outside_water(value)
     ]
@@ -446,10 +451,32 @@ def score_bubb_guidance(
             math.exp(-0.8 * abs(count - len(visible_reference)))
             for count in field_counts
         ]))
+        count_rule = rules_by_id["bubb.1h.anomeric_reporter_region"]
+        count_matches = all(count == len(visible_reference) for count in field_counts)
+        rule_results.append(evidence_result(
+            knowledge,
+            count_rule,
+            observed={
+                "counts_by_field": field_counts,
+                "candidate_visible_reference_count": len(visible_reference),
+            },
+            score=count_score,
+            status="supports" if count_matches else "contradicts",
+            explanation=(
+                "The number of detected anomeric reporter clusters agrees with "
+                "the candidate reference at every field."
+                if count_matches
+                else "The detected anomeric reporter count differs from the candidate reference."
+            ),
+        ))
 
     j_checks = []
     j_scores = []
-    patterns = list((profile or {}).get("anomeric_j_patterns_hz", []))
+    patterns = (
+        coupling_rules_for_profile(knowledge, str(profile_name))
+        if profile_name
+        else []
+    )
     ordered_reference = sorted(all_anomeric, reverse=True)
     for measured in observations["consensus_anomeric_spacings"]:
         if not ordered_reference or not patterns:
@@ -461,26 +488,51 @@ def score_bubb_guidance(
         if nearest_index >= len(patterns):
             continue
         pattern = patterns[nearest_index]
-        score = _range_score(float(measured["spacing_hz"]), pattern["range_hz"])
+        expected_range = scoring_range(pattern)
+        if expected_range is None:
+            continue
+        score = range_score(float(measured["spacing_hz"]), expected_range)
         j_scores.append(score)
-        j_checks.append({
+        check = {
+            "rule_id": pattern["id"],
             "form": pattern["form"],
             "reference_center_ppm": ordered_reference[nearest_index],
             "observed_center_ppm": measured["center_ppm"],
             "observed_spacing_hz": measured["spacing_hz"],
-            "expected_range_hz": pattern["range_hz"],
+            "expected_range_hz": expected_range,
+            "range_kind": (
+                "quoted" if pattern.get("expected_range") else "implementation_tolerance"
+            ),
             "field_support": measured["field_support"],
             "score": score,
-        })
+        }
+        j_checks.append(check)
+        rule_results.append(evidence_result(
+            knowledge,
+            pattern,
+            observed={
+                "center_ppm": measured["center_ppm"],
+                "resolved_spacing_hz": measured["spacing_hz"],
+                "field_support": measured["field_support"],
+            },
+            score=score,
+            status="supports" if expected_range[0] <= measured["spacing_hz"] <= expected_range[1] else "contradicts",
+            explanation=(
+                f"The reproducible {measured['spacing_hz']:.3f} Hz spacing is "
+                f"compared with the {pattern['form']} candidate rule "
+                f"({expected_range[0]:.1f}-{expected_range[1]:.1f} Hz)."
+            ),
+        ))
     j_score = float(np.mean(j_scores)) if j_scores else None
 
     diagnostic_checks = []
     diagnostic_scores = []
-    diagnostic_regions = {
-        "methyl": (1.1, 1.3),
-        "acetyl": (2.0, 2.1),
+    diagnostic_rules = {
+        "methyl": rules_by_id["bubb.1h.methyl_reporter_region"],
+        "acetyl": rules_by_id["bubb.1h.acetyl_reporter_region"],
     }
-    for label, region in diagnostic_regions.items():
+    for label, reporter_rule in diagnostic_rules.items():
+        region = reporter_rule["region"]
         expected_values = [
             value for value in full_reference if region[0] <= value <= region[1]
         ]
@@ -493,12 +545,41 @@ def score_bubb_guidance(
         ]
         score = _bidirectional_match_score(observed_values, expected_values, 0.08)
         diagnostic_scores.append(float(score or 0.0))
-        diagnostic_checks.append({
+        diagnostic_check = {
+            "rule_id": reporter_rule["id"],
             "reporter": label,
             "reference_ppm": expected_values,
             "observed_ppm": observed_values,
             "score": score,
-        })
+        }
+        diagnostic_checks.append(diagnostic_check)
+        rule_results.append(evidence_result(
+            knowledge,
+            reporter_rule,
+            observed={"reference_ppm": expected_values, "observed_ppm": observed_values},
+            score=score,
+            status="supports" if score is not None and score >= 0.5 else "contradicts",
+            explanation=f"The observed {label} reporter region is compared only because the candidate reference contains that reporter.",
+        ))
+
+    caution_rule = rules_by_id["bubb.1h.non_first_order_warning"]
+    rule_results.append(evidence_result(
+        knowledge,
+        caution_rule,
+        observed={"crowded_region_ppm": [3.4, 4.0]},
+        score=None,
+        status="caution",
+        explanation="No nonanomeric line separation is automatically promoted to a signed scalar coupling.",
+    ))
+    confirmation_rule = rules_by_id["duus.assignment.multidimensional_evidence"]
+    rule_results.append(evidence_result(
+        knowledge,
+        confirmation_rule,
+        observed={"experiment_stage": "multifield_1D"},
+        score=None,
+        status="caution",
+        explanation="This 1-D rank remains a hypothesis until orthogonal assignment evidence is supplied.",
+    ))
 
     available_scores = [
         value
@@ -511,8 +592,13 @@ def score_bubb_guidance(
     ]
     if not available_scores:
         return None
+    cited_sources: dict[str, dict[str, Any]] = {}
+    for result in rule_results:
+        for source in result["sources"]:
+            cited_sources[source["key"]] = source
     return {
-        "reference": BUBB_REFERENCE,
+        "knowledge_schema_version": knowledge["schema_version"],
+        "references": list(cited_sources.values()),
         "profile": profile_name,
         "expected_model": (profile or {}).get("expected_model"),
         "structural_reporter_groups": (
@@ -527,13 +613,25 @@ def score_bubb_guidance(
             "consensus_anomeric_spacings"
         ],
         "diagnostic_reporter_checks": diagnostic_checks,
+        "rule_results": rule_results,
         "score": float(np.mean(available_scores)),
         "warning": (
-            "Bubb guidance constrains candidate interpretation. It does not "
-            "supply molecule-specific shifts, prove assignments, or convert "
-            "crowded-region line separations into signed J values."
+            "Cited literature guidance constrains candidate interpretation. It "
+            "does not supply molecule-specific shifts, prove assignments, or "
+            "convert crowded-region line separations into signed J values."
         ),
     }
+
+
+def score_bubb_guidance(
+    candidate: dict[str, Any],
+    fields: list[dict[str, Any]],
+    repo_root: Path,
+    observations: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """Backward-compatible name for the cited literature-guidance channel."""
+
+    return score_literature_guidance(candidate, fields, repo_root, observations)
 
 
 def _matrix_coupling_summary(components: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -688,7 +786,7 @@ def score_candidate(
     full_reference = _reference_full_proton_centers(repo_root, candidate)
     physics = score_physics_model(candidate, fields, repo_root) if enable_physics else None
     bubb = (
-        score_bubb_guidance(
+        score_literature_guidance(
             candidate,
             fields,
             repo_root,
@@ -792,10 +890,13 @@ def score_candidate(
         "full_proton_reference_available": bool(full_reference),
         "physics_model_available": physics is not None,
         "bubb_guidance_available": bubb is not None,
+        "literature_guidance_available": bubb is not None,
         "mean_chemical_shift_score": mean_chemical,
         "mean_multiplet_shape_score": mean_shape,
         "bubb_guidance_score": bubb_score,
         "bubb_guidance": bubb,
+        "literature_guidance_score": bubb_score,
+        "literature_guidance": bubb,
         "physics_model": physics,
         "mean_score": mean_score,
         "field_results": field_results,
@@ -907,7 +1008,7 @@ def build_report(repo_root: Path, molecule: str, ranked: list[dict[str, Any]]) -
             ),
             "combined_candidate_score": (
                 "70% chemical-shift fingerprint, 20% exact matrix multiplet "
-                "shape, and 10% Bubb guidance; unavailable optional channels "
+                "shape, and 10% cited literature guidance; unavailable optional channels "
                 "receive a neutral 0.5 rather than being treated as failure"
             ),
         },
@@ -956,13 +1057,13 @@ def write_outputs(repo_root: Path, molecule: str, report: dict[str, Any]) -> tup
         (
             "This compares the complete proton-shift fingerprint. Where a spin "
             "matrix is available, exact forward simulation also tests multiplet "
-            "shapes and all matrix scalar couplings. Bubb reporter-group and "
-            "cross-field anomeric-spacing guidance is reported separately."
+            "shapes and all matrix scalar couplings. Source-traceable Bubb/Duus "
+            "rules are evaluated separately."
         ),
         "",
         "This is a multifield 1-D hypothesis ranking, not an identity confirmation.",
         "",
-        "| Rank | Candidate | Combined | Shift fingerprint | Multiplet/J shape | Bubb | Matrix |",
+        "| Rank | Candidate | Combined | Shift fingerprint | Multiplet/J shape | Literature | Matrix |",
         "|---:|---|---:|---:|---:|---:|---|",
     ]
     for rank, item in enumerate(report["ranked_candidates"], 1):
@@ -1005,11 +1106,11 @@ def write_outputs(repo_root: Path, molecule: str, report: dict[str, Any]) -> tup
                 f"{value:.3f}" for value in component["scalar_couplings_hz"]
             )
             lines.append(f"- {component['component']}: {values} Hz")
-    top_bubb = report["ranked_candidates"][0].get("bubb_guidance")
+    top_bubb = report["ranked_candidates"][0].get("literature_guidance")
     if top_bubb:
-        lines.extend(["", "## Top-candidate Bubb guidance", ""])
+        lines.extend(["", "## Top-candidate literature rules", ""])
         lines.append(
-            f"- Bubb score: {top_bubb['score']:.3f}; profile: "
+            f"- Literature score: {top_bubb['score']:.3f}; profile: "
             f"{top_bubb['profile'] or 'general reporter rules'}."
         )
         lines.append(
@@ -1023,6 +1124,21 @@ def write_outputs(repo_root: Path, molecule: str, report: dict[str, Any]) -> tup
                 f"across {check['field_support']} fields; expected "
                 f"{check['expected_range_hz'][0]:.1f}-"
                 f"{check['expected_range_hz'][1]:.1f} Hz."
+            )
+        lines.extend(["", "### Rule audit trail", ""])
+        for result in top_bubb["rule_results"]:
+            source_labels = ", ".join(
+                f"{source['key']} (DOI {source['doi']}; {source['locator']})"
+                for source in result["sources"]
+            )
+            score_text = (
+                f"; score {result['score']:.3f}"
+                if result["score"] is not None
+                else ""
+            )
+            lines.append(
+                f"- `{result['rule_id']}`: **{result['status']}**{score_text}. "
+                f"{result['explanation']} Source: {source_labels}."
             )
         lines.append(f"- Caution: {top_bubb['warning']}")
     direct_j = report.get("direct_j_spacing_evidence")
@@ -1063,9 +1179,11 @@ def main() -> int:
         help="Skip exact matrix-derived multiplet/J forward simulations",
     )
     parser.add_argument(
+        "--no-literature-guidance",
         "--no-bubb-guidance",
+        dest="no_literature_guidance",
         action="store_true",
-        help="Skip Bubb reporter-group and anomeric-spacing guidance",
+        help="Skip cited Bubb/Duus reporter, coupling, and evidence guidance",
     )
     args = parser.parse_args()
     root = args.repo_root.resolve()
@@ -1080,7 +1198,7 @@ def main() -> int:
         root,
         library,
         enable_physics=not args.no_physics_model,
-        enable_bubb=not args.no_bubb_guidance,
+        enable_bubb=not args.no_literature_guidance,
     )
     report = build_report(root, args.molecule, ranked)
     json_path, md_path = write_outputs(root, args.molecule, report)
@@ -1091,7 +1209,7 @@ def main() -> int:
         "Top evidence: "
         f"full shifts={top.get('mean_chemical_shift_score')}, "
         f"multiplet/J shape={top.get('mean_multiplet_shape_score')}, "
-        f"Bubb={top.get('bubb_guidance_score')}"
+        f"literature={top.get('literature_guidance_score')}"
     )
     print(f"Wrote {json_path}")
     print(f"Wrote {md_path}")

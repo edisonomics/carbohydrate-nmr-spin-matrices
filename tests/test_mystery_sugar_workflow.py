@@ -234,6 +234,27 @@ class MysterySugarScreenTests(unittest.TestCase):
         self.assertAlmostEqual(alpha["observed_spacing_hz"], 1.6, delta=0.2)
         self.assertGreaterEqual(alpha["field_support"], 2)
         self.assertEqual(alpha["expected_range_hz"], [1.1, 2.1])
+        self.assertEqual(alpha["range_kind"], "implementation_tolerance")
+        self.assertEqual(alpha["rule_id"], "bubb.j12.alpha_d_mannose")
+
+    def test_literature_guidance_is_auditable(self):
+        fields = self.screen.load_prepared(ROOT, "mannose")
+        mannose = next(
+            item for item in self.screen.load_library() if item["id"] == "d_mannose"
+        )
+        result = self.screen.score_literature_guidance(mannose, fields, ROOT)
+
+        self.assertIsNotNone(result)
+        rule_results = {item["rule_id"]: item for item in result["rule_results"]}
+        alpha = rule_results["bubb.j12.alpha_d_mannose"]
+        self.assertEqual(alpha["status"], "supports")
+        self.assertEqual(alpha["sources"][0]["doi"], "10.1002/cmr.a.10080")
+        self.assertIn("journal page 8", alpha["locator"])
+        self.assertIn("duus.assignment.multidimensional_evidence", rule_results)
+        self.assertEqual(
+            rule_results["duus.assignment.multidimensional_evidence"]["score"],
+            None,
+        )
 
     def test_expanded_known_mannose_screen_beats_shift_only_trehalose(self):
         fields = self.screen.load_prepared(ROOT, "mannose")

@@ -9,7 +9,7 @@ It does not assume the molecule name and it does not invent a final matrix. The 
 3. compares both the full fingerprint and anomeric region with BMRB references;
 4. where a local matrix exists, exactly simulates the multiplet shapes and all
    scalar couplings at every measured field;
-5. applies Bubb structural-reporter and anomeric-coupling guidance;
+5. evaluates source-traceable Bubb/Duus structural, coupling, and evidence rules;
 6. ranks topology hypotheses; and
 7. writes `CANDIDATE` or `REVIEW` plus the evidence needed next.
 
@@ -42,8 +42,8 @@ excluding water at 4.65–4.90 ppm. Use
 screen.
 
 The combined score uses 70% complete chemical-shift fingerprint, 20% exact
-matrix-derived multiplet shape, and 10% Bubb guidance. A missing optional
-matrix or Bubb channel receives a neutral 0.5 rather than being confused with
+matrix-derived multiplet shape, and 10% cited literature guidance. A missing optional
+matrix or literature channel receives a neutral 0.5 rather than being confused with
 negative evidence. Generated BMRB candidates remain review-gated.
 
 ## Interpretation
@@ -86,10 +86,20 @@ This score is screening evidence. It does not assign individual lines or turn
 an unresolved spacing into a signed scalar coupling. Candidates without a
 local matrix show `n/a` rather than receiving invented coupling evidence.
 
-## Bubb-guided screening
+## Executable literature knowledge
 
-The Bubb channel follows W. A. Bubb, *NMR Spectroscopy in the Study of
-Carbohydrates* (2003), DOI `10.1002/cmr.a.10080`. It reports:
+The machine-readable source of truth is
+`src/common/carbohydrate_nmr_knowledge.json`. It currently contains rules
+verified directly against Bubb (2003), DOI `10.1002/cmr.a.10080`, and Duus,
+Gotfredsen & Bock (2000), DOI `10.1021/cr990302n`. Every rule records:
+
+- a stable rule ID;
+- the paper DOI and exact section/page locator;
+- the scientific statement and its applicability conditions;
+- quoted numeric values separately from software tolerances; and
+- the permitted use in scoring, warnings, or confirmation gates.
+
+The current executable rules report:
 
 - resolved anomeric reporters and the visible component count;
 - methyl reporters near 1.2 ppm and acetyl reporters near 2.0–2.1 ppm;
@@ -98,10 +108,18 @@ Carbohydrates* (2003), DOI `10.1002/cmr.a.10080`. It reports:
 - the mannose exception, approximately 1.6 Hz for alpha and 0.8 Hz for beta.
 
 Only spacings reproduced in at least two fields enter this guidance channel.
-Bubb also explicitly warns that crowded nonanomeric carbohydrate spectra are
+Bubb explicitly warns that crowded nonanomeric carbohydrate spectra are
 often not first order, so ordinary line separations must not automatically be
-called coupling constants. Use `--no-bubb-guidance` to disable this channel
-for a controlled comparison.
+called coupling constants. Duus rules add stereochemical coupling checks,
+optional one-bond carbon-proton checks, sample-metadata requirements, and the
+need for multidimensional confirmation. Use `--no-literature-guidance` to
+disable this channel for a controlled comparison; `--no-bubb-guidance` remains
+as a backward-compatible alias.
+
+The JSON report retains every rule result with its observation, score, status,
+source, locator, applicability, and explanation. Adding another paper means
+adding verified rules to the knowledge file and regression tests—not embedding
+uncited prose in the ranker.
 
 ## Georgia-style Mystery Sugar 1 figures
 
