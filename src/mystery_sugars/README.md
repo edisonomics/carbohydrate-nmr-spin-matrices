@@ -39,6 +39,28 @@ The candidate library includes xylose, glucose, mannose, sucrose, and a referenc
 
 The screen is a hypothesis ranker. It must not promote an unknown to a publishable identity without a verified BMRB/GISSMO matrix, local COSY/TOCSY/HSQC/HMBC evidence, or a matched authentic standard.
 
+## Expand screening with explore_BMRB
+
+Sync the structure-deduplicated carbohydrate catalog from the sibling
+`explore_BMRB` repository (or its live GitHub Pages copy):
+
+```bash
+python3 src/mystery_sugars/sync_explore_bmrb_catalog.py
+```
+
+Then include its candidates during ranking:
+
+```bash
+conda run -n sucrose_project python src/mystery_sugars/identify_from_1d.py \
+  --molecule mystery_sugar \
+  --include-bmrb-catalog
+```
+
+The expanded mode adds candidates with assigned anomeric-region references,
+but all newly generated candidates remain `needs_review`. If one ranks first,
+the report must remain `REVIEW`; only the hand-reviewed core library can reach
+`CANDIDATE` from the 1-D screening stage.
+
 ## Georgia-style Mystery Sugar 1 figures
 
 For the saved Mystery Sugar 1/D-xylose candidate fit, generate high-contrast

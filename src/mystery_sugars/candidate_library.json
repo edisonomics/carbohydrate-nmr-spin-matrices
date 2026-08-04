@@ -4,6 +4,7 @@
   "candidates": [
     {
       "id": "d_xylose",
+      "review_status": "approved",
       "name": "D-(+)-xylose",
       "class": "reducing_aldopentose",
       "bmrb_entry": "bmse000026",
@@ -16,6 +17,7 @@
     },
     {
       "id": "d_glucose",
+      "review_status": "approved",
       "name": "D-glucose",
       "class": "reducing_aldohexose",
       "bmrb_entry": "bmse000015",
@@ -28,6 +30,7 @@
     },
     {
       "id": "d_mannose",
+      "review_status": "approved",
       "name": "D-mannose",
       "class": "reducing_aldohexose",
       "bmrb_entry": "bmse000018",
@@ -40,6 +43,7 @@
     },
     {
       "id": "sucrose",
+      "review_status": "approved",
       "name": "Sucrose",
       "class": "nonreducing_disaccharide",
       "bmrb_entry": "bmse000119",
@@ -52,6 +56,7 @@
     },
     {
       "id": "d_fructose",
+      "review_status": "approved",
       "name": "D-fructose",
       "class": "reducing_ketohexose",
       "bmrb_entry": null,

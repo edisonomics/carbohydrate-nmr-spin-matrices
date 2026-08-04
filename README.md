@@ -185,6 +185,23 @@ The report is written to
 model is chemically consistent with the selected profile; `REVIEW` means a
 student should resolve the warning before treating the fit as publishable.
 
+### Expand the mystery-sugar screen from explore_BMRB
+
+The companion `explore_BMRB` project exports a structure-deduplicated,
+review-gated carbohydrate candidate catalog. Sync it and opt into the expanded
+screen with:
+
+```bash
+python3 src/mystery_sugars/sync_explore_bmrb_catalog.py
+conda run -n sucrose_project python src/mystery_sugars/identify_from_1d.py \
+  --molecule mystery_sugar --include-bmrb-catalog
+```
+
+New BMRB/ChEBI candidates may affect the ranking but cannot be promoted beyond
+`REVIEW` until their scope, stereochemistry, conditions, and anomer assignment
+are manually approved. The original hand-reviewed candidates remain the trusted
+core library.
+
 The BMRB importer also preserves deposited numeric peak coordinates and atom
 labels in `data/<molecule>/bmrb/<entry>/spectral_observations.json` under
 `peak_data`. It extracts any available 1-D or 2-D `_Peak_char` tables (for

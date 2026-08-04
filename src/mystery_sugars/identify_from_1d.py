@@ -20,12 +20,59 @@ from typing import Any, Iterable
 import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_BMRB_CATALOG = Path(__file__).with_name("bmrb_candidate_catalog.json")
 
 
-def load_library(path: Path | None = None) -> list[dict[str, Any]]:
+def _catalog_candidate(item: dict[str, Any]) -> dict[str, Any]:
+    """Adapt one explore_BMRB record to the existing ranking contract."""
+
+    centers = [float(value) for value in item.get("reference_anomeric_centers_ppm", [])]
+    return {
+        "id": item["candidate_id"],
+        "name": item["name"],
+        "class": "chebi_carbohydrate_unreviewed",
+        "bmrb_entry": item.get("selected_bmrb_entry"),
+        "reference_shift_file": None,
+        "reference_anomeric_centers_ppm": centers,
+        "expected_anomeric_clusters": len(centers) if centers else None,
+        "expected_components": None,
+        "forms": [],
+        "topology": "unreviewed BMRB/ChEBI carbohydrate candidate",
+        "notes": item.get("review_notes"),
+        "review_status": item.get("review_status", "needs_review"),
+        "bmrb_evidence": item.get("evidence", {}),
+        "identity_warning": item.get("identity_warning", ""),
+    }
+
+
+def load_library(
+    path: Path | None = None,
+    *,
+    include_bmrb_catalog: bool = False,
+    bmrb_catalog_path: Path | None = None,
+) -> list[dict[str, Any]]:
     path = path or Path(__file__).with_name("candidate_library.json")
     payload = json.loads(path.read_text(encoding="utf-8"))
-    return list(payload.get("candidates", []))
+    candidates = list(payload.get("candidates", []))
+    for candidate in candidates:
+        candidate.setdefault("review_status", "approved")
+
+    if not include_bmrb_catalog:
+        return candidates
+    catalog_path = bmrb_catalog_path or DEFAULT_BMRB_CATALOG
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    existing_entries = {
+        candidate.get("bmrb_entry")
+        for candidate in candidates
+        if candidate.get("bmrb_entry")
+    }
+    for item in catalog.get("candidates", []):
+        if item.get("selected_bmrb_entry") in existing_entries:
+            continue
+        adapted = _catalog_candidate(item)
+        if adapted["reference_anomeric_centers_ppm"]:
+            candidates.append(adapted)
+    return candidates
 
 
 def load_prepared(repo_root: Path, molecule: str) -> list[dict[str, Any]]:
@@ -101,6 +148,9 @@ def detect_anomeric_clusters(
 
 
 def _reference_anomeric_centers(repo_root: Path, candidate: dict[str, Any]) -> list[float]:
+    embedded = candidate.get("reference_anomeric_centers_ppm")
+    if embedded:
+        return [float(value) for value in embedded]
     relative = candidate.get("reference_shift_file")
     if not relative:
         return []
@@ -171,6 +221,9 @@ def score_candidate(
         "forms": candidate.get("forms", []),
         "topology": candidate.get("topology"),
         "notes": candidate.get("notes"),
+        "review_status": candidate.get("review_status", "approved"),
+        "identity_warning": candidate.get("identity_warning", ""),
+        "bmrb_evidence": candidate.get("bmrb_evidence", {}),
         "reference_available": reference_available,
         "mean_score": mean_score,
         "field_results": field_results,
@@ -192,6 +245,7 @@ def build_report(repo_root: Path, molecule: str, ranked: list[dict[str, Any]]) -
     margin = float(top["mean_score"] - second["mean_score"]) if second else 1.0
     promotable = bool(
         top["reference_available"]
+        and top.get("review_status", "approved") == "approved"
         and top["mean_score"] >= 0.75
         and margin >= 0.10
     )
@@ -203,6 +257,7 @@ def build_report(repo_root: Path, molecule: str, ranked: list[dict[str, Any]]) -
         "identity_claim": top["name"] if promotable else "unknown carbohydrate",
         "top_candidate": top["name"],
         "topology_hypothesis": top["topology"],
+        "top_review_status": top.get("review_status", "approved"),
         "top_score": top["mean_score"],
         "runner_up": second["name"] if second else None,
         "score_margin": margin,
@@ -245,10 +300,25 @@ def main() -> int:
     parser.add_argument("--molecule", required=True)
     parser.add_argument("--repo-root", type=Path, default=REPO_ROOT)
     parser.add_argument("--library", type=Path)
+    parser.add_argument(
+        "--include-bmrb-catalog",
+        action="store_true",
+        help="Include review-gated candidates synced from explore_BMRB",
+    )
+    parser.add_argument(
+        "--bmrb-catalog",
+        type=Path,
+        default=DEFAULT_BMRB_CATALOG,
+        help=f"Synced explore_BMRB catalog (default: {DEFAULT_BMRB_CATALOG})",
+    )
     args = parser.parse_args()
     root = args.repo_root.resolve()
     fields = load_prepared(root, args.molecule)
-    library = load_library(args.library)
+    library = load_library(
+        args.library,
+        include_bmrb_catalog=args.include_bmrb_catalog,
+        bmrb_catalog_path=args.bmrb_catalog,
+    )
     ranked = rank_candidates(fields, root, library)
     report = build_report(root, args.molecule, ranked)
     json_path, md_path = write_outputs(root, args.molecule, report)

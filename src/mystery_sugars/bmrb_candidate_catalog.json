@@ -1,0 +1,2120 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-04T22:52:29Z",
+  "description": "Structure-deduplicated ChEBI carbohydrate candidates for safe, review-gated mystery-sugar screening.",
+  "classification_method": "BMRB full InChI exactly matches a ChEBI CHEBI:16646 descendant",
+  "ranking_policy": "All generated candidates require manual review; 1-D screening never confirms identity.",
+  "summary": {
+    "bmrb_carbohydrate_entries": 80,
+    "unique_candidate_structures": 45,
+    "candidates_with_proton_references": 44,
+    "candidates_with_anomeric_references": 31,
+    "candidates_with_gissmo_matrices": 11,
+    "candidates_with_identity_warnings": 2
+  },
+  "candidates": [
+    {
+      "candidate_id": "bmrb_bmse000793",
+      "name": "1,4-D-xylobiose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000793",
+      "bmrb_entry_ids": [
+        "bmse000793",
+        "bmse000823"
+      ],
+      "bmrb_names": [
+        "1,4-D-xylobiose"
+      ],
+      "inchi": "InChI=1S/C10H18O9/c11-3-1-18-10(8(15)5(3)12)19-4-2-17-9(16)7(14)6(4)13/h3-16H,1-2H2/t3-,4-,5+,6+,7-,8-,9-,10+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:234012"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.337,
+        3.542,
+        3.622,
+        3.779,
+        3.966,
+        4.051,
+        4.452,
+        4.582,
+        5.183
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.452,
+        4.582,
+        5.183
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 9,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000793",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000569",
+      "name": "1,6-anhydro-beta-d-glucose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000569",
+      "bmrb_entry_ids": [
+        "bmse000569"
+      ],
+      "bmrb_names": [
+        "1,6-anhydro-beta-d-glucose"
+      ],
+      "inchi": "InChI=1S/C6H10O5/c7-3-2-1-10-6(11-2)5(9)4(3)8/h2-9H,1H2/t2-,3-,4+,5-,6-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:30997"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.517,
+        3.668,
+        3.746,
+        4.084,
+        4.617,
+        5.441
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.617,
+        5.441
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 6,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000569",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse001112",
+      "name": "1-Kestose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse001112",
+      "bmrb_entry_ids": [
+        "bmse001112"
+      ],
+      "bmrb_names": [
+        "1-Kestose"
+      ],
+      "inchi": "InChI=1S/C18H32O16/c19-1-6-9(23)12(26)13(27)16(31-6)34-18(15(29)11(25)8(3-21)33-18)5-30-17(4-22)14(28)10(24)7(2-20)32-17/h6-16,19-29H,1-5H2/t6-,7-,8-,9-,10-,11-,12+,13-,14+,15+,16-,17-,18+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:16885"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.4655,
+        3.532,
+        3.6739,
+        3.7061,
+        3.7259,
+        3.7439,
+        3.7785,
+        3.7977,
+        3.8065,
+        3.8188,
+        3.828,
+        3.8318,
+        3.8609,
+        4.0346,
+        4.0755,
+        4.1837,
+        4.2686,
+        5.4249
+      ],
+      "reference_anomeric_centers_ppm": [
+        5.4249
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 18,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse001112",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000910",
+      "name": "2-alpha-Mannobiose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000910",
+      "bmrb_entry_ids": [
+        "bmse000910"
+      ],
+      "bmrb_names": [
+        "2-alpha-Mannobiose"
+      ],
+      "inchi": "InChI=1S/C12H22O11/c13-1-3-6(16)8(18)10(11(20)21-3)23-12-9(19)7(17)5(15)4(2-14)22-12/h3-20H,1-2H2/t3-,4-,5-,6-,7+,8+,9+,10+,11-,12-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:146997"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.434,
+        3.496,
+        3.559,
+        3.654,
+        3.85,
+        4.062,
+        4.734,
+        4.907,
+        5.174
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.734,
+        4.907,
+        5.174
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 9,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000910",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000062",
+      "name": "Adonitol",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000062",
+      "bmrb_entry_ids": [
+        "bmse000062",
+        "bmse000886"
+      ],
+      "bmrb_names": [
+        "Adonitol"
+      ],
+      "inchi": "InChI=1S/C5H12O5/c6-1-3(8)5(10)4(9)2-7/h3-10H,1-2H2/t3-,4+,5+",
+      "chebi_ids": [
+        "CHEBI:17151"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.686,
+        3.72,
+        3.812
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 3,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000062",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000313",
+      "name": "beta-gentiobiose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000313",
+      "bmrb_entry_ids": [
+        "bmse000313"
+      ],
+      "bmrb_names": [
+        "beta-gentiobiose"
+      ],
+      "inchi": "InChI=1S/C12H22O11/c13-1-3-5(14)8(17)10(19)12(23-3)21-2-4-6(15)7(16)9(18)11(20)22-4/h3-20H,1-2H2/t3-,4-,5-,6-,7+,8+,9-,10-,11-,12-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:71422"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.2465,
+        3.3083,
+        3.3768,
+        3.4724,
+        3.4842,
+        3.5022,
+        3.619,
+        3.73,
+        3.8357,
+        3.9083,
+        4.19365,
+        4.4948,
+        4.645
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.4948,
+        4.645
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 13,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000313",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000225",
+      "name": "D,L-Glyceraldehyde",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000225",
+      "bmrb_entry_ids": [
+        "bmse000225"
+      ],
+      "bmrb_names": [
+        "D,L-Glyceraldehyde"
+      ],
+      "inchi": "InChI=1S/C3H6O3/c4-1-3(6)2-5/h1,3,5-6H,2H2/t3-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:27975"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.601,
+        3.748,
+        4.938
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.938
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 3,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000225",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000225",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000013",
+      "name": "D-(+)-Galactose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000013",
+      "bmrb_entry_ids": [
+        "bmse000013",
+        "bmse001006"
+      ],
+      "bmrb_names": [
+        "D-(+)-Galactose"
+      ],
+      "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3+,4+,5-,6+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:28061"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.48,
+        3.639,
+        3.727,
+        3.82,
+        3.918,
+        3.975,
+        4.079,
+        4.575,
+        5.254
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.575,
+        5.254
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 9,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000013",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000015",
+      "name": "D-(+)-Glucose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000015",
+      "bmrb_entry_ids": [
+        "bmse000015",
+        "bmse000791",
+        "bmse000797",
+        "bmse000855"
+      ],
+      "bmrb_names": [
+        "D-(+)-Glucose",
+        "D-(+)-Glucose - supplemental proton data"
+      ],
+      "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3-,4+,5-,6+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:15444",
+        "CHEBI:17925",
+        "CHEBI:18269",
+        "CHEBI:18398",
+        "CHEBI:28100",
+        "CHEBI:28102"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.232,
+        3.401,
+        3.459,
+        3.517,
+        3.726,
+        3.828,
+        3.887,
+        4.636,
+        5.222
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.636,
+        5.222
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 9,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000015",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000015",
+      "identity_warning": "Multiple BMRB compound labels share this InChI; review stereochemistry and structure normalization.",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000017",
+      "name": "D-(+)-Maltose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000017",
+      "bmrb_entry_ids": [
+        "bmse000017",
+        "bmse000798",
+        "bmse000946"
+      ],
+      "bmrb_names": [
+        "D-(+)-Maltose"
+      ],
+      "inchi": "InChI=1S/C12H22O11/c13-1-3-5(15)6(16)9(19)12(22-3)23-10-4(2-14)21-11(20)8(18)7(10)17/h3-20H,1-2H2/t3-,4-,5-,6+,7-,8-,9-,10-,11-,12-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:18147"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.266,
+        3.412,
+        3.764,
+        4.648,
+        5.223,
+        5.41
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.648,
+        5.223,
+        5.41
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 6,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000017",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000018",
+      "name": "D-(+)-Mannose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000018",
+      "bmrb_entry_ids": [
+        "bmse000018",
+        "bmse000874",
+        "bmse000882"
+      ],
+      "bmrb_names": [
+        "D-(+)-Mannose"
+      ],
+      "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3-,4+,5+,6+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:28729"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.374,
+        3.56,
+        3.645,
+        3.734,
+        3.812,
+        3.851,
+        3.88,
+        3.924,
+        4.891,
+        5.17
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.891,
+        5.17
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 10,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000018",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000022",
+      "name": "D-(+)-Sorbose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000022",
+      "bmrb_entry_ids": [
+        "bmse000022",
+        "bmse000903"
+      ],
+      "bmrb_names": [
+        "D-(+)-Sorbose"
+      ],
+      "inchi": "InChI=1S/C6H12O6/c7-2-6(11)5(10)4(9)3(8)1-12-6/h3-5,7-11H,1-2H2/t3-,4+,5-,6+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:48677"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.492,
+        3.666
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 2,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000022",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000026",
+      "name": "D-(+)-Xylose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000026",
+      "bmrb_entry_ids": [
+        "bmse000026",
+        "bmse000898"
+      ],
+      "bmrb_names": [
+        "D-(+)-Xylose"
+      ],
+      "inchi": "InChI=1S/C5H10O5/c6-2-1-10-5(9)4(8)3(2)7/h2-9H,1H2/t2-,3+,4-,5+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:28518"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.216,
+        3.312,
+        3.42,
+        3.512,
+        3.625,
+        3.916,
+        4.568,
+        5.186
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.568,
+        5.186
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 8,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000026",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000010",
+      "name": "D-(-)-Fructose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000010",
+      "bmrb_entry_ids": [
+        "bmse000010",
+        "bmse000902",
+        "bmse001005",
+        "bmse001012"
+      ],
+      "bmrb_names": [
+        "D-(-)-Fructose"
+      ],
+      "inchi": "InChI=1S/C6H12O6/c7-1-3-4(9)5(10)6(11,2-8)12-3/h3-5,7-11H,1-2H2/t3-,4-,5+,6+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:37720"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.55,
+        3.683,
+        3.806,
+        3.886,
+        3.986,
+        4.005,
+        4.03,
+        4.106
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 8,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000010",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000023",
+      "name": "D-(-)-Tagatose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000023",
+      "bmrb_entry_ids": [
+        "bmse000023",
+        "bmse000865",
+        "bmse000883"
+      ],
+      "bmrb_names": [
+        "D-(-)-Tagatose"
+      ],
+      "inchi": "InChI=1S/C6H12O6/c7-2-6(11)5(10)4(9)3(8)1-12-6/h3-5,7-11H,1-2H2/t3-,4+,5+,6-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:49092"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.495,
+        3.623,
+        3.738,
+        3.849,
+        3.915
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 5,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000023",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000008",
+      "name": "D-Allose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000008",
+      "bmrb_entry_ids": [
+        "bmse000008",
+        "bmse000808",
+        "bmse001008"
+      ],
+      "bmrb_names": [
+        "D-Allose"
+      ],
+      "inchi": "InChI=1S/C6H12O6/c7-1-2-3(8)4(9)5(10)6(11)12-2/h2-11H,1H2/t2-,3-,4-,5-,6-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:40656"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.406,
+        3.627,
+        3.688,
+        3.774,
+        3.868,
+        4.159,
+        4.875
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.875
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 7,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000008",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000138",
+      "name": "D-Cellobiose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000138",
+      "bmrb_entry_ids": [
+        "bmse000138",
+        "bmse000889",
+        "bmse000939"
+      ],
+      "bmrb_names": [
+        "D-Cellobiose"
+      ],
+      "inchi": "InChI=1S/C12H22O11/c13-1-3-5(15)6(16)9(19)12(22-3)23-10-4(2-14)21-11(20)8(18)7(10)17/h3-20H,1-2H2/t3-,4-,5-,6+,7-,8-,9-,10-,11-,12+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:36217"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.294,
+        3.412,
+        3.487,
+        3.611,
+        3.733,
+        3.867,
+        4.505,
+        4.657,
+        5.22
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.505,
+        4.657,
+        5.22
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 9,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000138",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000216",
+      "name": "D-Galacturonic acid",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000216",
+      "bmrb_entry_ids": [
+        "bmse000216"
+      ],
+      "bmrb_names": [
+        "D-Galacturonic acid"
+      ],
+      "inchi": "InChI=1S/C6H10O7/c7-1-2(8)4(5(10)11)13-6(12)3(1)9/h1-4,6-9,12H,(H,10,11)/t1-,2+,3+,4-,6+/m0/s1",
+      "chebi_ids": [
+        "CHEBI:47954"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.809,
+        3.903,
+        4.266,
+        4.396,
+        5.285
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.396,
+        5.285
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 5,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000216",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000440",
+      "name": "D-Glucosaminic acid",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000440",
+      "bmrb_entry_ids": [
+        "bmse000440"
+      ],
+      "bmrb_names": [
+        "D-Glucosaminic acid"
+      ],
+      "inchi": "InChI=1S/C6H13NO6/c7-3(6(12)13)5(11)4(10)2(9)1-8/h2-5,8-11H,1,7H2,(H,12,13)/t2-,3-,4-,5-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:17784"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.663,
+        3.761,
+        3.83,
+        3.884,
+        4.422
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.422
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 5,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000440",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000440",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000140",
+      "name": "D-Glucuronate",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000140",
+      "bmrb_entry_ids": [
+        "bmse000140"
+      ],
+      "bmrb_names": [
+        "D-Glucuronate"
+      ],
+      "inchi": "InChI=1S/C6H10O7/c7-1-2(8)4(5(10)11)13-6(12)3(1)9/h1-4,6-9,12H,(H,10,11)/t1-,2-,3+,4-,6+/m0/s1",
+      "chebi_ids": [
+        "CHEBI:28860"
+      ],
+      "reference_proton_shifts_ppm": [],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 0,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000140",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000298",
+      "name": "D-Glyceraldehyde",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000298",
+      "bmrb_entry_ids": [
+        "bmse000298"
+      ],
+      "bmrb_names": [
+        "D-Glyceraldehyde"
+      ],
+      "inchi": "InChI=1S/C3H6O3/c4-1-3(6)2-5/h1,3,5-6H,2H2/t3-/m0/s1",
+      "chebi_ids": [
+        "CHEBI:17378"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.583,
+        3.687,
+        4.944
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.944
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 3,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000298",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000099",
+      "name": "D-Mannitol",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000099",
+      "bmrb_entry_ids": [
+        "bmse000099"
+      ],
+      "bmrb_names": [
+        "D-Mannitol"
+      ],
+      "inchi": "InChI=1S/C6H14O6/c7-1-3(9)5(11)6(12)4(10)2-8/h3-12H,1-2H2/t3-,4-,5-,6-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:16899"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.754,
+        3.757,
+        3.792
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 3,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000099",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000239",
+      "name": "D-Saccharate",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000239",
+      "bmrb_entry_ids": [
+        "bmse000239"
+      ],
+      "bmrb_names": [
+        "D-Saccharate"
+      ],
+      "inchi": "InChI=1S/C6H10O8/c7-1(3(9)5(11)12)2(8)4(10)6(13)14/h1-4,7-10H,(H,11,12)(H,13,14)/t1-,2-,3-,4+/m0/s1",
+      "chebi_ids": [
+        "CHEBI:16002"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.93,
+        4.062,
+        4.115,
+        4.135
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 4,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000239",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000239",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000115",
+      "name": "D-Sorbitol",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000115",
+      "bmrb_entry_ids": [
+        "bmse000115",
+        "bmse000803",
+        "bmse001007"
+      ],
+      "bmrb_names": [
+        "D-Sorbitol"
+      ],
+      "inchi": "InChI=1S/C6H14O6/c7-1-3(9)5(11)6(12)4(10)2-8/h3-12H,1-2H2/t3-,4+,5-,6-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:17924"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.625,
+        3.754,
+        3.825
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 3,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000115",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000125",
+      "name": "D-Trehalose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000125",
+      "bmrb_entry_ids": [
+        "bmse000125",
+        "bmse000815",
+        "bmse000876"
+      ],
+      "bmrb_names": [
+        "D-Trehalose"
+      ],
+      "inchi": "InChI=1S/C12H22O11/c13-1-3-5(15)7(17)9(19)11(21-3)23-12-10(20)8(18)6(16)4(2-14)22-12/h3-20H,1-2H2/t3-,4-,5-,6-,7+,8+,9-,10-,11-,12-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:140775",
+        "CHEBI:16551"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.44,
+        3.639,
+        3.753,
+        3.824,
+        3.864,
+        5.187
+      ],
+      "reference_anomeric_centers_ppm": [
+        5.187
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 6,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000125",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000166",
+      "name": "D-Xylonate",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000166",
+      "bmrb_entry_ids": [
+        "bmse000166"
+      ],
+      "bmrb_names": [
+        "D-Xylonate"
+      ],
+      "inchi": "InChI=1S/C5H10O6/c6-1-2(7)3(8)4(9)5(10)11/h2-4,6-9H,1H2,(H,10,11)/t2-,3+,4+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:134538"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.691,
+        3.821,
+        4.136
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 3,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000166",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000166",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000027",
+      "name": "D-Xylulose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000027",
+      "bmrb_entry_ids": [
+        "bmse000027"
+      ],
+      "bmrb_names": [
+        "D-Xylulose"
+      ],
+      "inchi": "InChI=1S/C5H10O5/c6-2-5(9)4(8)3(7)1-10-5/h3-4,6-9H,1-2H2/t3-,4+,5+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:188998"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.587,
+        3.901,
+        4.043,
+        4.376
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.376
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 4,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000027",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000144",
+      "name": "Dihydroxyacetone",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000144",
+      "bmrb_entry_ids": [
+        "bmse000144"
+      ],
+      "bmrb_names": [
+        "Dihydroxyacetone"
+      ],
+      "inchi": "InChI=1S/C3H6O3/c4-1-3(6)2-5/h4-5H,1-2H2",
+      "chebi_ids": [
+        "CHEBI:16016"
+      ],
+      "reference_proton_shifts_ppm": [
+        4.403
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.403
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 1,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000144",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000144",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000084",
+      "name": "Gluconic acid",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000084",
+      "bmrb_entry_ids": [
+        "bmse000084"
+      ],
+      "bmrb_names": [
+        "Gluconic acid"
+      ],
+      "inchi": "InChI=1S/C6H12O7/c7-1-2(8)3(9)4(10)5(11)6(12)13/h2-5,7-11H,1H2,(H,12,13)/t2-,3-,4+,5-/m1/s1",
+      "chebi_ids": [
+        "CHEBI:33198"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.74,
+        3.756
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 2,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000084",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000084",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000184",
+      "name": "Glycerol",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000184",
+      "bmrb_entry_ids": [
+        "bmse000184",
+        "bmse000807",
+        "bmse000856"
+      ],
+      "bmrb_names": [
+        "Glycerol"
+      ],
+      "inchi": "InChI=1S/C3H8O3/c4-1-3(6)2-5/h3-6H,1-2H2",
+      "chebi_ids": [
+        "CHEBI:17522",
+        "CHEBI:17754"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.591,
+        3.768
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 2,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000184",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000184",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000095",
+      "name": "i-Erythritol",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000095",
+      "bmrb_entry_ids": [
+        "bmse000095",
+        "bmse000100",
+        "bmse000121"
+      ],
+      "bmrb_names": [
+        "i-Erythritol",
+        "L-(-)-Threitol",
+        "meso-Erythritol"
+      ],
+      "inchi": "InChI=1S/C4H10O4/c5-1-3(7)4(8)2-6/h3-8H,1-2H2/t3-,4+",
+      "chebi_ids": [
+        "CHEBI:17113"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.666,
+        3.706
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 2,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000095",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000095",
+      "identity_warning": "Multiple BMRB compound labels share this InChI; review stereochemistry and structure normalization.",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000213",
+      "name": "L-(+)-Arabinose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000213",
+      "bmrb_entry_ids": [
+        "bmse000213"
+      ],
+      "bmrb_names": [
+        "L-(+)-Arabinose"
+      ],
+      "inchi": "InChI=1S/C5H10O5/c6-2-1-10-5(9)4(8)3(2)7/h2-9H,1H2/t2-,3-,4+,5-/m0/s1",
+      "chebi_ids": [
+        "CHEBI:40886"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.504,
+        3.655,
+        3.775,
+        3.827,
+        3.935,
+        5.226
+      ],
+      "reference_anomeric_centers_ppm": [
+        5.226
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 6,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000213",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000068",
+      "name": "L-(-) Arabitol",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000068",
+      "bmrb_entry_ids": [
+        "bmse000068",
+        "bmse000802",
+        "bmse000869"
+      ],
+      "bmrb_names": [
+        "L-(-) Arabitol"
+      ],
+      "inchi": "InChI=1S/C5H12O5/c6-1-3(8)5(10)4(9)2-7/h3-10H,1-2H2/t3-,4-/m0/s1",
+      "chebi_ids": [
+        "CHEBI:18403"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.561,
+        3.655,
+        3.743,
+        3.831,
+        3.926
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 5,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000068",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000036",
+      "name": "L-(-)-Fucose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000036",
+      "bmrb_entry_ids": [
+        "bmse000036"
+      ],
+      "bmrb_names": [
+        "L-(-)-Fucose"
+      ],
+      "inchi": "InChI=1S/C6H12O5/c1-2-3(7)4(8)5(9)6(10)11-2/h2-10H,1H3/t2-,3+,4+,5-,6-/m0/s1",
+      "chebi_ids": [
+        "CHEBI:42589"
+      ],
+      "reference_proton_shifts_ppm": [
+        1.198,
+        1.238,
+        3.438,
+        3.737,
+        3.848,
+        4.191,
+        5.194
+      ],
+      "reference_anomeric_centers_ppm": [
+        5.194
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 7,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000036",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000167",
+      "name": "L-Tartaric acid",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000167",
+      "bmrb_entry_ids": [
+        "bmse000167"
+      ],
+      "bmrb_names": [
+        "L-Tartaric acid"
+      ],
+      "inchi": "InChI=1S/C4H6O6/c5-1(3(7)8)2(6)4(9)10/h1-2,5-6H,(H,7,8)(H,9,10)/t1-,2+",
+      "chebi_ids": [
+        "CHEBI:15673"
+      ],
+      "reference_proton_shifts_ppm": [
+        4.324
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.324
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 1,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000167",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000167",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse001328",
+      "name": "Lacto-N-fucopentaitolI",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse001328",
+      "bmrb_entry_ids": [
+        "bmse001328"
+      ],
+      "bmrb_names": [
+        "Lacto-N-fucopentaitolI"
+      ],
+      "inchi": "InChI=1S/C32H55NO25/c1-7-14(39)18(43)22(47)30(50-7)58-27-19(44)15(40)9(3-34)54-32(27)56-25-13(33-8(2)38)29(52-10(4-35)16(25)41)57-26-17(42)11(5-36)53-31(23(26)48)55-24-12(6-37)51-28(49)21(46)20(24)45/h7,9-32,34-37,39-49H,3-6H2,1-2H3,(H,33,38)/t7-,9+,10+,11+,12+,13+,14+,15-,16+,17-,18+,19-,20+,21+,22-,23+,24+,25+,26-,27+,28-,29-,30-,31-,32-/m0/s1",
+      "chebi_ids": [
+        "CHEBI:152066"
+      ],
+      "reference_proton_shifts_ppm": [
+        1.0316,
+        1.2257,
+        1.8155,
+        2.0429,
+        2.9535,
+        3.1384,
+        3.1725,
+        3.2703,
+        3.2724,
+        3.2766,
+        3.2848,
+        3.4042,
+        3.4106,
+        3.4383,
+        3.4611,
+        3.4723,
+        3.4893,
+        3.4929,
+        3.4935,
+        3.4969,
+        3.5042,
+        3.517,
+        3.545,
+        3.551,
+        3.569,
+        3.577,
+        3.6254,
+        3.6338,
+        3.6411,
+        3.6451,
+        3.6497,
+        3.6932,
+        3.6998,
+        3.7172,
+        3.7212,
+        3.7373,
+        3.7573,
+        3.7806,
+        3.7853,
+        3.8054,
+        3.8134,
+        3.8189,
+        3.8334,
+        3.8695,
+        3.9295,
+        3.9335,
+        3.9816,
+        4.0443,
+        4.1338,
+        4.2473,
+        4.286,
+        4.3245,
+        4.4188,
+        4.4314,
+        4.576,
+        4.6179,
+        4.6347,
+        4.6488,
+        4.9739,
+        5.1759
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.3245,
+        4.4251,
+        4.576,
+        4.6338,
+        4.9739,
+        5.1759
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 60,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse001328",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse001327",
+      "name": "Lacto-N-tetraose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse001327",
+      "bmrb_entry_ids": [
+        "bmse001327"
+      ],
+      "bmrb_names": [
+        "Lacto-N-tetraose"
+      ],
+      "inchi": "InChI=1S/C26H45NO21/c1-6(32)27-11-21(47-25-18(39)15(36)12(33)7(2-28)44-25)13(34)8(3-29)43-24(11)48-22-14(35)9(4-30)45-26(19(22)40)46-20-10(5-31)42-23(41)17(38)16(20)37/h7-26,28-31,33-41H,2-5H2,1H3,(H,27,32)/t7-,8-,9-,10-,11-,12+,13-,14+,15+,16-,17-,18-,19-,20-,21-,22+,23+,24+,25+,26+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:148237"
+      ],
+      "reference_proton_shifts_ppm": [
+        1.8066,
+        2.0241,
+        2.9554,
+        3.1619,
+        3.2064,
+        3.2669,
+        3.2754,
+        3.2815,
+        3.3079,
+        3.3114,
+        3.4187,
+        3.4467,
+        3.459,
+        3.4752,
+        3.4784,
+        3.4897,
+        3.5447,
+        3.5635,
+        3.583,
+        3.5854,
+        3.5865,
+        3.5874,
+        3.6316,
+        3.6364,
+        3.6389,
+        3.6422,
+        3.6547,
+        3.7031,
+        3.7045,
+        3.7118,
+        3.7341,
+        3.7458,
+        3.7823,
+        3.8115,
+        3.8438,
+        3.8965,
+        3.9063,
+        3.9427,
+        4.1129,
+        4.1469,
+        4.2384,
+        4.322,
+        4.4373,
+        4.6539,
+        4.72,
+        4.7746
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.322,
+        4.4373,
+        4.6539,
+        4.72,
+        4.7746
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 46,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse001327",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000065",
+      "name": "Lactose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000065",
+      "bmrb_entry_ids": [
+        "bmse000065",
+        "bmse000813",
+        "bmse000938"
+      ],
+      "bmrb_names": [
+        "Lactose"
+      ],
+      "inchi": "InChI=1S/C12H22O11/c13-1-3-5(15)6(16)9(19)12(22-3)23-10-4(2-14)21-11(20)8(18)7(10)17/h3-20H,1-2H2/t3-,4-,5+,6+,7-,8-,9-,10-,11+,12+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:36219"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.564,
+        3.663,
+        3.808,
+        3.941,
+        4.447,
+        4.663,
+        5.221
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.447,
+        4.663,
+        5.221
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 7,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000065",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse001332",
+      "name": "LNnT",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse001332",
+      "bmrb_entry_ids": [
+        "bmse001332"
+      ],
+      "bmrb_names": [
+        "LNnT"
+      ],
+      "inchi": "InChI=1S/C26H45NO21/c1-6(32)27-11-14(35)20(46-25-18(39)15(36)12(33)7(2-28)43-25)10(5-31)45-24(11)48-22-13(34)8(3-29)44-26(19(22)40)47-21-9(4-30)42-23(41)17(38)16(21)37/h7-26,28-31,33-41H,2-5H2,1H3,(H,27,32)/t7-,8-,9-,10-,11-,12+,13+,14-,15+,16-,17-,18-,19-,20-,21-,22+,23+,24+,25+,26+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:147728"
+      ],
+      "reference_proton_shifts_ppm": [
+        1.8012,
+        2.03,
+        3.1669,
+        3.2766,
+        3.2805,
+        3.2844,
+        3.3001,
+        3.4253,
+        3.4255,
+        3.4313,
+        3.4646,
+        3.4895,
+        3.4921,
+        3.5293,
+        3.5401,
+        3.5508,
+        3.5833,
+        3.5866,
+        3.5959,
+        3.6308,
+        3.6331,
+        3.6364,
+        3.663,
+        3.7016,
+        3.7228,
+        3.7294,
+        3.7327,
+        3.7427,
+        3.7437,
+        3.7493,
+        3.7892,
+        3.7991,
+        3.8191,
+        3.8328,
+        3.8523,
+        3.9253,
+        3.9419,
+        3.9486,
+        4.1611,
+        4.1914,
+        4.2198,
+        4.4434,
+        4.4795,
+        4.6466,
+        4.6575,
+        4.7035,
+        4.8901
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.46145,
+        4.65205,
+        4.7035,
+        4.8901
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 47,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse001332",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000233",
+      "name": "Melibiose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000233",
+      "bmrb_entry_ids": [
+        "bmse000233"
+      ],
+      "bmrb_names": [
+        "Melibiose"
+      ],
+      "inchi": "InChI=1S/C12H22O11/c13-1-3-5(14)8(17)10(19)12(23-3)21-2-4-6(15)7(16)9(18)11(20)22-4/h3-20H,1-2H2/t3-,4-,5+,6-,7+,8+,9-,10-,11-,12+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:61827"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.499,
+        3.627,
+        3.73,
+        3.887,
+        3.959,
+        4.979,
+        5.234
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.979,
+        5.234
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 7,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000233",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000228",
+      "name": "Polygalacturonic acid",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000228",
+      "bmrb_entry_ids": [
+        "bmse000228"
+      ],
+      "bmrb_names": [
+        "Polygalacturonic acid"
+      ],
+      "inchi": "InChI=1S/C6H10O7/c7-1-2(8)4(5(10)11)13-6(12)3(1)9/h1-4,6-9,12H,(H,10,11)/t1-,2+,3+,4-,6-/m0/s1",
+      "chebi_ids": [
+        "CHEBI:15446",
+        "CHEBI:33885"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.758,
+        3.992,
+        4.398,
+        5.051
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.398,
+        5.051
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 4,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000228",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000221",
+      "name": "Raffinose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000221",
+      "bmrb_entry_ids": [
+        "bmse000221"
+      ],
+      "bmrb_names": [
+        "Raffinose"
+      ],
+      "inchi": "InChI=1S/C18H32O16/c19-1-5-8(22)11(25)13(27)16(31-5)30-3-7-9(23)12(26)14(28)17(32-7)34-18(4-21)15(29)10(24)6(2-20)33-18/h5-17,19-29H,1-4H2/t5-,6-,7-,8+,9-,10-,11+,12+,13-,14-,15+,16+,17-,18+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:16634"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.554,
+        3.735,
+        3.773,
+        4.032,
+        4.984,
+        5.417
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.984,
+        5.417
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 6,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000221",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000240",
+      "name": "Stachyose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000240",
+      "bmrb_entry_ids": [
+        "bmse000240"
+      ],
+      "bmrb_names": [
+        "Stachyose"
+      ],
+      "inchi": "InChI=1S/C24H42O21/c25-1-6-10(28)14(32)17(35)21(41-6)39-3-8-11(29)15(33)18(36)22(42-8)40-4-9-12(30)16(34)19(37)23(43-9)45-24(5-27)20(38)13(31)7(2-26)44-24/h6-23,25-38H,1-5H2/t6-,7-,8-,9-,10+,11+,12-,13-,14+,15+,16+,17-,18-,19-,20+,21+,22+,23-,24+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:17164"
+      ],
+      "reference_proton_shifts_ppm": [
+        4.982,
+        5.419
+      ],
+      "reference_anomeric_centers_ppm": [
+        4.982,
+        5.419
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 2,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000240",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000119",
+      "name": "Sucrose",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000119",
+      "bmrb_entry_ids": [
+        "bmse000119",
+        "bmse000804",
+        "bmse000918"
+      ],
+      "bmrb_names": [
+        "Sucrose"
+      ],
+      "inchi": "InChI=1S/C12H22O11/c13-1-4-6(16)8(18)9(19)11(21-4)23-12(3-15)10(20)7(17)5(2-14)22-12/h4-11,13-20H,1-3H2/t4-,5-,6-,7-,8+,9-,10+,11-,12+/m1/s1",
+      "chebi_ids": [
+        "CHEBI:17992",
+        "CHEBI:65313"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.461,
+        3.547,
+        3.665,
+        3.752,
+        3.817,
+        3.886,
+        4.042,
+        4.209,
+        5.403
+      ],
+      "reference_anomeric_centers_ppm": [
+        5.403
+      ],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 9,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": true,
+        "gissmo_simulation_count": 1
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000119",
+      "gissmo_url": "https://gissmo.bmrb.io/entry/bmse000119",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    },
+    {
+      "candidate_id": "bmrb_bmse000129",
+      "name": "Xylitol",
+      "review_status": "needs_review",
+      "selected_bmrb_entry": "bmse000129",
+      "bmrb_entry_ids": [
+        "bmse000129"
+      ],
+      "bmrb_names": [
+        "Xylitol"
+      ],
+      "inchi": "InChI=1S/C5H12O5/c6-1-3(8)5(10)4(9)2-7/h3-10H,1-2H2/t3-,4+,5-",
+      "chebi_ids": [
+        "CHEBI:15963"
+      ],
+      "reference_proton_shifts_ppm": [
+        3.636,
+        3.708,
+        3.791
+      ],
+      "reference_anomeric_centers_ppm": [],
+      "reference_anomeric_region_ppm": [
+        4.3,
+        5.8
+      ],
+      "evidence": {
+        "assigned_proton_shift_count": 3,
+        "has_1d": true,
+        "has_2d": true,
+        "has_raw_time_domain_data": true,
+        "has_gissmo_matrix": false,
+        "gissmo_simulation_count": 0
+      },
+      "bmrb_url": "https://bmrb.io/metabolomics/mol_summary/show_data.php?id=bmse000129",
+      "gissmo_url": "",
+      "identity_warning": "",
+      "review_notes": "Confirm carbohydrate scope, stereochemistry, sample conditions, and anomer assignments before enabling identification claims."
+    }
+  ]
+}
