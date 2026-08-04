@@ -202,6 +202,12 @@ New BMRB/ChEBI candidates may affect the ranking but cannot be promoted beyond
 are manually approved. The original hand-reviewed candidates remain the trusted
 core library.
 
+The mystery-sugar ranker also applies Bubb structural-reporter guidance:
+visible anomer/component counts, diagnostic methyl and acetyl regions, and
+anomeric J1,2 patterns that reproduce in at least two magnetic fields. The
+guidance is a scored interpretation channel, but it never turns a crowded
+line separation into an assigned scalar coupling.
+
 The BMRB importer also preserves deposited numeric peak coordinates and atom
 labels in `data/<molecule>/bmrb/<entry>/spectral_observations.json` under
 `peak_data`. It extracts any available 1-D or 2-D `_Peak_char` tables (for

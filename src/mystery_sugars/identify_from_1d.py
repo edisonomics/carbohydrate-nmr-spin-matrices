@@ -212,17 +212,26 @@ def _reference_full_proton_centers(
     return _cluster_centers(values, gap_ppm=0.04)
 
 
-def _reference_anomeric_centers(repo_root: Path, candidate: dict[str, Any]) -> list[float]:
+def _reference_all_anomeric_centers(
+    repo_root: Path, candidate: dict[str, Any]
+) -> list[float]:
     embedded = candidate.get("reference_anomeric_centers_ppm")
     if embedded:
-        return [float(value) for value in embedded]
+        return _cluster_centers((float(value) for value in embedded), gap_ppm=0.04)
     values = [
         value
         for value in _reference_proton_values(repo_root, candidate)
         if ANOMERIC_REGION[0] <= value <= ANOMERIC_REGION[1]
-        and _outside_water(value)
     ]
     return _cluster_centers(values, gap_ppm=0.04)
+
+
+def _reference_anomeric_centers(repo_root: Path, candidate: dict[str, Any]) -> list[float]:
+    return [
+        value
+        for value in _reference_all_anomeric_centers(repo_root, candidate)
+        if _outside_water(value)
+    ]
 
 
 def _match_score(observed: list[float], reference: list[float], tolerance_ppm: float = 0.10) -> float | None:
@@ -247,6 +256,284 @@ def _bidirectional_match_score(
     if forward is None or reverse is None:
         return None
     return 0.70 * forward + 0.30 * reverse
+
+
+def _resolved_lines_near(
+    field: dict[str, Any],
+    center_ppm: float,
+    *,
+    window_ppm: float = 0.025,
+    minimum_distance_hz: float = 0.8,
+) -> dict[str, Any]:
+    """Find resolved positive lines near one anomeric multiplet center."""
+
+    from scipy.signal import find_peaks  # noqa: PLC0415
+
+    ppm = np.asarray(field["ppm"], dtype=float)
+    intensity = np.asarray(field["intensity"], dtype=float)
+    mask = (ppm >= center_ppm - window_ppm) & (ppm <= center_ppm + window_ppm)
+    x, y = ppm[mask], intensity[mask]
+    order = np.argsort(x)
+    x, y = x[order], y[order]
+    if x.size < 8:
+        return {"center_ppm": center_ppm, "lines_ppm": [], "spacings_hz": []}
+    z = y - np.median(y)
+    differences = np.diff(z)
+    noise = (
+        float(np.median(np.abs(differences - np.median(differences))))
+        / 0.6745
+        / math.sqrt(2.0)
+    ) or 1.0
+    prominence = max(6.0 * noise, 0.05 * float(np.max(z)))
+    step_ppm = abs(float(np.median(np.diff(x))))
+    distance = max(
+        1,
+        int(round(minimum_distance_hz / (step_ppm * float(field["field_mhz"])))),
+    )
+    peaks, properties = find_peaks(z, prominence=prominence, distance=distance)
+    lines = sorted(float(x[index]) for index in peaks)
+    spacings = sorted(
+        (lines[j] - lines[i]) * float(field["field_mhz"])
+        for i in range(len(lines))
+        for j in range(i + 1, len(lines))
+        if 0.5
+        <= (lines[j] - lines[i]) * float(field["field_mhz"])
+        <= 15.0
+    )
+    return {
+        "center_ppm": center_ppm,
+        "lines_ppm": lines,
+        "spacings_hz": spacings,
+        "noise_proxy": noise,
+        "prominence_threshold": prominence,
+        "line_prominences": [float(value) for value in properties["prominences"]],
+    }
+
+
+def build_bubb_observations(fields: list[dict[str, Any]]) -> dict[str, Any]:
+    """Measure Bubb-style reporter evidence once for all candidates."""
+
+    field_reports: list[dict[str, Any]] = []
+    spacing_rows: list[dict[str, float]] = []
+    for field in fields:
+        centers = detect_anomeric_clusters(field["ppm"], field["intensity"])
+        multiplets = []
+        for center in centers:
+            report = _resolved_lines_near(field, center)
+            multiplets.append(report)
+            for spacing in report["spacings_hz"]:
+                spacing_rows.append({
+                    "field_mhz": float(field["field_mhz"]),
+                    "center_ppm": float(center),
+                    "spacing_hz": float(spacing),
+                })
+        full_centers = detect_full_proton_clusters(field["ppm"], field["intensity"])
+        field_reports.append({
+            "field_mhz": float(field["field_mhz"]),
+            "anomeric_centers_ppm": centers,
+            "anomeric_multiplets": multiplets,
+            "methyl_reporters_ppm": [
+                value for value in full_centers if 1.1 <= value <= 1.3
+            ],
+            "acetyl_reporters_ppm": [
+                value for value in full_centers if 2.0 <= value <= 2.1
+            ],
+        })
+
+    center_groups: list[list[dict[str, float]]] = []
+    for row in sorted(spacing_rows, key=lambda item: item["center_ppm"]):
+        target = next(
+            (
+                group
+                for group in center_groups
+                if abs(float(np.mean([item["center_ppm"] for item in group]))
+                       - row["center_ppm"]) <= 0.04
+            ),
+            None,
+        )
+        if target is None:
+            target = []
+            center_groups.append(target)
+        target.append(row)
+
+    consensus = []
+    for center_group in center_groups:
+        spacing_groups: list[list[dict[str, float]]] = []
+        for row in sorted(center_group, key=lambda item: item["spacing_hz"]):
+            target = next(
+                (
+                    group
+                    for group in spacing_groups
+                    if abs(float(np.mean([item["spacing_hz"] for item in group]))
+                           - row["spacing_hz"]) <= 0.6
+                ),
+                None,
+            )
+            if target is None:
+                target = []
+                spacing_groups.append(target)
+            target.append(row)
+        supported = [
+            group
+            for group in spacing_groups
+            if len({item["field_mhz"] for item in group}) >= 2
+        ]
+        if not supported:
+            continue
+        best = max(
+            supported,
+            key=lambda group: (
+                len({item["field_mhz"] for item in group}),
+                len(group),
+            ),
+        )
+        consensus.append({
+            "center_ppm": float(np.median([item["center_ppm"] for item in center_group])),
+            "spacing_hz": float(np.median([item["spacing_hz"] for item in best])),
+            "field_support": len({item["field_mhz"] for item in best}),
+            "field_values": best,
+        })
+    return {
+        "field_reports": field_reports,
+        "consensus_anomeric_spacings": sorted(
+            consensus, key=lambda item: item["center_ppm"]
+        ),
+        "interpretation": (
+            "Cross-field resolved anomeric line spacings are Bubb-style "
+            "screening evidence. Crowded or strongly coupled line separations "
+            "are not automatically assigned as scalar couplings."
+        ),
+    }
+
+
+def _range_score(value: float, expected_range: list[float]) -> float:
+    lower, upper = (float(expected_range[0]), float(expected_range[1]))
+    distance = max(lower - value, 0.0, value - upper)
+    return math.exp(-0.5 * (distance / 0.8) ** 2)
+
+
+def score_bubb_guidance(
+    candidate: dict[str, Any],
+    fields: list[dict[str, Any]],
+    repo_root: Path,
+    observations: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    """Apply Bubb reporter-group rules without inventing assignments."""
+
+    all_anomeric = _reference_all_anomeric_centers(repo_root, candidate)
+    full_reference = _reference_full_proton_centers(repo_root, candidate)
+    if not all_anomeric and not full_reference:
+        return None
+
+    common_path = repo_root / "src" / "common"
+    if str(common_path) not in sys.path:
+        sys.path.insert(0, str(common_path))
+    from bubb_rules import BUBB_REFERENCE, profile_for  # noqa: PLC0415
+
+    observations = observations or build_bubb_observations(fields)
+    profile_name = candidate.get("bubb_profile")
+    profile = profile_for(str(profile_name)) if profile_name else None
+    visible_reference = [
+        value for value in all_anomeric if _outside_water(value)
+    ]
+    field_counts = [
+        len(item["anomeric_centers_ppm"])
+        for item in observations["field_reports"]
+    ]
+    count_score = None
+    if visible_reference and field_counts:
+        count_score = float(np.mean([
+            math.exp(-0.8 * abs(count - len(visible_reference)))
+            for count in field_counts
+        ]))
+
+    j_checks = []
+    j_scores = []
+    patterns = list((profile or {}).get("anomeric_j_patterns_hz", []))
+    ordered_reference = sorted(all_anomeric, reverse=True)
+    for measured in observations["consensus_anomeric_spacings"]:
+        if not ordered_reference or not patterns:
+            continue
+        nearest_index = min(
+            range(len(ordered_reference)),
+            key=lambda index: abs(ordered_reference[index] - measured["center_ppm"]),
+        )
+        if nearest_index >= len(patterns):
+            continue
+        pattern = patterns[nearest_index]
+        score = _range_score(float(measured["spacing_hz"]), pattern["range_hz"])
+        j_scores.append(score)
+        j_checks.append({
+            "form": pattern["form"],
+            "reference_center_ppm": ordered_reference[nearest_index],
+            "observed_center_ppm": measured["center_ppm"],
+            "observed_spacing_hz": measured["spacing_hz"],
+            "expected_range_hz": pattern["range_hz"],
+            "field_support": measured["field_support"],
+            "score": score,
+        })
+    j_score = float(np.mean(j_scores)) if j_scores else None
+
+    diagnostic_checks = []
+    diagnostic_scores = []
+    diagnostic_regions = {
+        "methyl": (1.1, 1.3),
+        "acetyl": (2.0, 2.1),
+    }
+    for label, region in diagnostic_regions.items():
+        expected_values = [
+            value for value in full_reference if region[0] <= value <= region[1]
+        ]
+        if not expected_values:
+            continue
+        observed_values = [
+            value
+            for field in observations["field_reports"]
+            for value in field[f"{label}_reporters_ppm"]
+        ]
+        score = _bidirectional_match_score(observed_values, expected_values, 0.08)
+        diagnostic_scores.append(float(score or 0.0))
+        diagnostic_checks.append({
+            "reporter": label,
+            "reference_ppm": expected_values,
+            "observed_ppm": observed_values,
+            "score": score,
+        })
+
+    available_scores = [
+        value
+        for value in [
+            count_score,
+            j_score,
+            float(np.mean(diagnostic_scores)) if diagnostic_scores else None,
+        ]
+        if value is not None
+    ]
+    if not available_scores:
+        return None
+    return {
+        "reference": BUBB_REFERENCE,
+        "profile": profile_name,
+        "expected_model": (profile or {}).get("expected_model"),
+        "structural_reporter_groups": (
+            (profile or {}).get("structural_reporter_groups", ["anomeric H1"])
+        ),
+        "visible_anomeric_reference_count": len(visible_reference),
+        "observed_anomeric_counts": field_counts,
+        "anomeric_count_score": count_score,
+        "anomeric_j_score": j_score,
+        "anomeric_j_checks": j_checks,
+        "consensus_anomeric_spacings": observations[
+            "consensus_anomeric_spacings"
+        ],
+        "diagnostic_reporter_checks": diagnostic_checks,
+        "score": float(np.mean(available_scores)),
+        "warning": (
+            "Bubb guidance constrains candidate interpretation. It does not "
+            "supply molecule-specific shifts, prove assignments, or convert "
+            "crowded-region line separations into signed J values."
+        ),
+    }
 
 
 def _matrix_coupling_summary(components: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -394,22 +681,37 @@ def score_candidate(
     repo_root: Path,
     *,
     enable_physics: bool = True,
+    enable_bubb: bool = True,
+    bubb_observations: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     anomeric_reference = _reference_anomeric_centers(repo_root, candidate)
     full_reference = _reference_full_proton_centers(repo_root, candidate)
     physics = score_physics_model(candidate, fields, repo_root) if enable_physics else None
+    bubb = (
+        score_bubb_guidance(
+            candidate,
+            fields,
+            repo_root,
+            observations=bubb_observations,
+        )
+        if enable_bubb
+        else None
+    )
     physics_by_field = {
         float(item["field_mhz"]): item
         for item in (physics or {}).get("field_results", [])
     }
     field_results: list[dict[str, Any]] = []
-    scores: list[float] = []
     chemical_scores: list[float] = []
     shape_scores: list[float] = []
     for field in fields:
         observed_anomeric = detect_anomeric_clusters(field["ppm"], field["intensity"])
         observed_full = detect_full_proton_clusters(field["ppm"], field["intensity"])
-        expected_count = candidate.get("expected_anomeric_clusters")
+        expected_count = (
+            len(anomeric_reference)
+            if anomeric_reference
+            else candidate.get("expected_anomeric_clusters")
+        )
         count_score = None
         if expected_count is not None:
             count_score = math.exp(-0.8 * abs(len(observed_anomeric) - int(expected_count)))
@@ -441,7 +743,6 @@ def score_candidate(
             score = float(shape_score)
         else:
             score = 0.0
-        scores.append(score)
         if chemical_score is not None:
             chemical_scores.append(float(chemical_score))
         if shape_score is not None:
@@ -459,9 +760,22 @@ def score_candidate(
             "chemical_shift_score": chemical_score,
             "multiplet_shape_score": shape_score,
             "physics_fit": physics_field or None,
-            "score": score,
+            "available_field_evidence_score": score,
         })
-    mean_score = float(np.mean(scores)) if scores else 0.0
+    mean_chemical = float(np.mean(chemical_scores)) if chemical_scores else None
+    mean_shape = float(np.mean(shape_scores)) if shape_scores else None
+    bubb_score = float(bubb["score"]) if bubb is not None else None
+    if mean_chemical is None:
+        mean_score = 0.0
+    else:
+        # Missing evidence is neutral rather than being confused with failure.
+        # This keeps shift-only BMRB candidates comparable with candidates that
+        # have matrix and Bubb evidence without rewarding unavailable channels.
+        mean_score = (
+            0.70 * mean_chemical
+            + 0.20 * (mean_shape if mean_shape is not None else 0.50)
+            + 0.10 * (bubb_score if bubb_score is not None else 0.50)
+        )
     reference_available = bool(anomeric_reference or full_reference)
     return {
         "candidate_id": candidate["id"],
@@ -477,12 +791,11 @@ def score_candidate(
         "reference_available": reference_available,
         "full_proton_reference_available": bool(full_reference),
         "physics_model_available": physics is not None,
-        "mean_chemical_shift_score": (
-            float(np.mean(chemical_scores)) if chemical_scores else None
-        ),
-        "mean_multiplet_shape_score": (
-            float(np.mean(shape_scores)) if shape_scores else None
-        ),
+        "bubb_guidance_available": bubb is not None,
+        "mean_chemical_shift_score": mean_chemical,
+        "mean_multiplet_shape_score": mean_shape,
+        "bubb_guidance_score": bubb_score,
+        "bubb_guidance": bubb,
         "physics_model": physics,
         "mean_score": mean_score,
         "field_results": field_results,
@@ -495,9 +808,18 @@ def rank_candidates(
     library: list[dict[str, Any]] | None = None,
     *,
     enable_physics: bool = True,
+    enable_bubb: bool = True,
 ) -> list[dict[str, Any]]:
+    bubb_observations = build_bubb_observations(fields) if enable_bubb else None
     results = [
-        score_candidate(candidate, fields, repo_root, enable_physics=enable_physics)
+        score_candidate(
+            candidate,
+            fields,
+            repo_root,
+            enable_physics=enable_physics,
+            enable_bubb=enable_bubb,
+            bubb_observations=bubb_observations,
+        )
         for candidate in (library or load_library())
     ]
     return sorted(results, key=lambda item: item["mean_score"], reverse=True)
@@ -583,8 +905,10 @@ def build_report(repo_root: Path, molecule: str, ranked: list[dict[str, Any]]) -
             "chemical_shift_fingerprint": (
                 "35% anomeric evidence plus 65% complete-window proton-shift match"
             ),
-            "matrix_model_when_available": (
-                "60% chemical-shift fingerprint plus 40% exact multiplet-shape simulation"
+            "combined_candidate_score": (
+                "70% chemical-shift fingerprint, 20% exact matrix multiplet "
+                "shape, and 10% Bubb guidance; unavailable optional channels "
+                "receive a neutral 0.5 rather than being treated as failure"
             ),
         },
         "status": status,
@@ -632,26 +956,36 @@ def write_outputs(repo_root: Path, molecule: str, report: dict[str, Any]) -> tup
         (
             "This compares the complete proton-shift fingerprint. Where a spin "
             "matrix is available, exact forward simulation also tests multiplet "
-            "shapes and all matrix scalar couplings."
+            "shapes and all matrix scalar couplings. Bubb reporter-group and "
+            "cross-field anomeric-spacing guidance is reported separately."
         ),
         "",
         "This is a multifield 1-D hypothesis ranking, not an identity confirmation.",
         "",
-        "| Rank | Candidate | Combined | Full shifts | Multiplet/J shape | Matrix |",
-        "|---:|---|---:|---:|---:|---|",
+        "| Rank | Candidate | Combined | Shift fingerprint | Multiplet/J shape | Bubb | Matrix |",
+        "|---:|---|---:|---:|---:|---:|---|",
     ]
     for rank, item in enumerate(report["ranked_candidates"], 1):
         shift = item.get("mean_chemical_shift_score")
         shape = item.get("mean_multiplet_shape_score")
+        bubb = item.get("bubb_guidance_score")
+        matrix_status = (
+            item["physics_model"]["spin_matrix_status"]
+            if item.get("physics_model")
+            else "unavailable"
+        )
         lines.append(
             f"| {rank} | {item['name']} | {item['mean_score']:.3f} | "
             f"{shift:.3f} | " if shift is not None else
             f"| {rank} | {item['name']} | {item['mean_score']:.3f} | n/a | "
         )
         lines[-1] += (
-            f"{shape:.3f} | {item['physics_model']['spin_matrix_status']} |"
-            if shape is not None
-            else "n/a | unavailable |"
+            f"{shape:.3f} | " if shape is not None else "n/a | "
+        )
+        lines[-1] += (
+            f"{bubb:.3f} | {matrix_status} |"
+            if bubb is not None
+            else f"n/a | {matrix_status} |"
         )
     lines.extend([
         "",
@@ -671,6 +1005,26 @@ def write_outputs(repo_root: Path, molecule: str, report: dict[str, Any]) -> tup
                 f"{value:.3f}" for value in component["scalar_couplings_hz"]
             )
             lines.append(f"- {component['component']}: {values} Hz")
+    top_bubb = report["ranked_candidates"][0].get("bubb_guidance")
+    if top_bubb:
+        lines.extend(["", "## Top-candidate Bubb guidance", ""])
+        lines.append(
+            f"- Bubb score: {top_bubb['score']:.3f}; profile: "
+            f"{top_bubb['profile'] or 'general reporter rules'}."
+        )
+        lines.append(
+            "- Observed anomeric counts by field: "
+            + ", ".join(str(value) for value in top_bubb["observed_anomeric_counts"])
+            + "."
+        )
+        for check in top_bubb["anomeric_j_checks"]:
+            lines.append(
+                f"- {check['form']}: {check['observed_spacing_hz']:.3f} Hz "
+                f"across {check['field_support']} fields; expected "
+                f"{check['expected_range_hz'][0]:.1f}-"
+                f"{check['expected_range_hz'][1]:.1f} Hz."
+            )
+        lines.append(f"- Caution: {top_bubb['warning']}")
     direct_j = report.get("direct_j_spacing_evidence")
     if direct_j:
         lines.extend([
@@ -708,6 +1062,11 @@ def main() -> int:
         action="store_true",
         help="Skip exact matrix-derived multiplet/J forward simulations",
     )
+    parser.add_argument(
+        "--no-bubb-guidance",
+        action="store_true",
+        help="Skip Bubb reporter-group and anomeric-spacing guidance",
+    )
     args = parser.parse_args()
     root = args.repo_root.resolve()
     fields = load_prepared(root, args.molecule)
@@ -721,6 +1080,7 @@ def main() -> int:
         root,
         library,
         enable_physics=not args.no_physics_model,
+        enable_bubb=not args.no_bubb_guidance,
     )
     report = build_report(root, args.molecule, ranked)
     json_path, md_path = write_outputs(root, args.molecule, report)
@@ -730,7 +1090,8 @@ def main() -> int:
     print(
         "Top evidence: "
         f"full shifts={top.get('mean_chemical_shift_score')}, "
-        f"multiplet/J shape={top.get('mean_multiplet_shape_score')}"
+        f"multiplet/J shape={top.get('mean_multiplet_shape_score')}, "
+        f"Bubb={top.get('bubb_guidance_score')}"
     )
     print(f"Wrote {json_path}")
     print(f"Wrote {md_path}")

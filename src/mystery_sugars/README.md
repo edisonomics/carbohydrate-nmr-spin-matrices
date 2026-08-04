@@ -9,8 +9,9 @@ It does not assume the molecule name and it does not invent a final matrix. The 
 3. compares both the full fingerprint and anomeric region with BMRB references;
 4. where a local matrix exists, exactly simulates the multiplet shapes and all
    scalar couplings at every measured field;
-5. ranks topology hypotheses; and
-6. writes `CANDIDATE` or `REVIEW` plus the evidence needed next.
+5. applies Bubb structural-reporter and anomeric-coupling guidance;
+6. ranks topology hypotheses; and
+7. writes `CANDIDATE` or `REVIEW` plus the evidence needed next.
 
 ## Run it
 
@@ -39,6 +40,11 @@ The default window is 0.50–10.00 ppm from each DSS-aligned full acquisition,
 excluding water at 4.65–4.90 ppm. Use
 `--no-physics-model` only when you deliberately want the faster shift-only
 screen.
+
+The combined score uses 70% complete chemical-shift fingerprint, 20% exact
+matrix-derived multiplet shape, and 10% Bubb guidance. A missing optional
+matrix or Bubb channel receives a neutral 0.5 rather than being confused with
+negative evidence. Generated BMRB candidates remain review-gated.
 
 ## Interpretation
 
@@ -79,6 +85,23 @@ values together. Linewidth and a small global ppm offset are nuisance searches.
 This score is screening evidence. It does not assign individual lines or turn
 an unresolved spacing into a signed scalar coupling. Candidates without a
 local matrix show `n/a` rather than receiving invented coupling evidence.
+
+## Bubb-guided screening
+
+The Bubb channel follows W. A. Bubb, *NMR Spectroscopy in the Study of
+Carbohydrates* (2003), DOI `10.1002/cmr.a.10080`. It reports:
+
+- resolved anomeric reporters and the visible component count;
+- methyl reporters near 1.2 ppm and acetyl reporters near 2.0–2.1 ppm;
+- cross-field anomeric line spacings;
+- general alpha-like 2–4 Hz and beta-like 7–9 Hz J1,2 patterns; and
+- the mannose exception, approximately 1.6 Hz for alpha and 0.8 Hz for beta.
+
+Only spacings reproduced in at least two fields enter this guidance channel.
+Bubb also explicitly warns that crowded nonanomeric carbohydrate spectra are
+often not first order, so ordinary line separations must not automatically be
+called coupling constants. Use `--no-bubb-guidance` to disable this channel
+for a controlled comparison.
 
 ## Georgia-style Mystery Sugar 1 figures
 

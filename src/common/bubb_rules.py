@@ -76,6 +76,11 @@ PROFILES: dict[str, dict[str, Any]] = {
         "class": "reducing_aldose",
         "expected_model": "anomer_mixture",
         "minimum_components": 2,
+        "structural_reporter_groups": ["H1"],
+        "anomeric_j_patterns_hz": [
+            {"form": "alpha", "range_hz": [2.0, 4.0]},
+            {"form": "beta", "range_hz": [7.0, 9.0]},
+        ],
         "possible_forms": ["alpha_pyranose", "beta_pyranose", "minor_furanose", "open_chain"],
         "notes": "Aqueous glucose commonly contains distinguishable alpha and beta forms; minor forms should be considered when residuals require them.",
     },
@@ -83,6 +88,11 @@ PROFILES: dict[str, dict[str, Any]] = {
         "class": "reducing_aldopentose",
         "expected_model": "anomer_mixture",
         "minimum_components": 2,
+        "structural_reporter_groups": ["H1"],
+        "anomeric_j_patterns_hz": [
+            {"form": "alpha", "range_hz": [2.0, 4.0]},
+            {"form": "beta", "range_hz": [7.0, 9.0]},
+        ],
         "possible_forms": ["alpha_pyranose", "beta_pyranose", "furanose", "open_chain"],
         "notes": "Aldopentoses can have appreciable furanose populations; an alpha/beta-only model is a provisional starting point.",
     },
@@ -90,6 +100,11 @@ PROFILES: dict[str, dict[str, Any]] = {
         "class": "reducing_aldose",
         "expected_model": "anomer_mixture",
         "minimum_components": 2,
+        "structural_reporter_groups": ["H1", "H2", "H3"],
+        "anomeric_j_patterns_hz": [
+            {"form": "alpha", "range_hz": [1.1, 2.1], "typical_hz": 1.6},
+            {"form": "beta", "range_hz": [0.4, 1.2], "typical_hz": 0.8},
+        ],
         "possible_forms": ["alpha_pyranose", "beta_pyranose", "minor_furanose", "open_chain"],
         "notes": "Treat alpha and beta forms as separate species unless the data demonstrate otherwise.",
     },
@@ -97,6 +112,10 @@ PROFILES: dict[str, dict[str, Any]] = {
         "class": "nonreducing_disaccharide",
         "expected_model": "single_molecule",
         "minimum_components": 1,
+        "structural_reporter_groups": ["glucosyl H1"],
+        "anomeric_j_patterns_hz": [
+            {"form": "fixed_alpha_glucosyl", "range_hz": [2.0, 4.0]},
+        ],
         "possible_forms": ["fixed_glucose_anomer", "fixed_fructose_anomer"],
         "notes": "Sucrose has no free anomeric center for ordinary mutarotation; use one linked disaccharide model, not an alpha/beta mixture.",
     },
@@ -105,11 +124,16 @@ PROFILES: dict[str, dict[str, Any]] = {
 
 COMMON_CHECKS = {
     "anomeric_reporter": True,
+    "anomeric_proton_region_ppm": [4.4, 5.5],
     "proton_crowding_ppm": [3.4, 4.0],
+    "acetyl_proton_region_ppm": [2.0, 2.1],
+    "methyl_proton_region_ppm": [1.1, 1.3],
     "use_2d_for_assignment": True,
     "warn_1d_splittings_are_not_automatically_J": True,
     "j12_alpha_hz": [2.0, 4.0],
     "j12_beta_hz": [7.0, 9.0],
+    "mannose_j12_alpha_typical_hz": 1.6,
+    "mannose_j12_beta_typical_hz": 0.8,
 }
 
 

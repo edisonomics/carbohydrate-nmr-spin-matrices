@@ -205,6 +205,51 @@ class MysterySugarScreenTests(unittest.TestCase):
         )
         self.assertTrue(xylose_result["matrix_couplings"])
 
+    def test_bubb_guidance_recovers_xylose_anomeric_j_classes(self):
+        fields = self.screen.load_prepared(ROOT, "mystery_sugar")
+        xylose = next(
+            item for item in self.screen.load_library() if item["id"] == "d_xylose"
+        )
+        result = self.screen.score_bubb_guidance(xylose, fields, ROOT)
+
+        self.assertIsNotNone(result)
+        checks = {item["form"]: item for item in result["anomeric_j_checks"]}
+        self.assertAlmostEqual(checks["alpha"]["observed_spacing_hz"], 3.7, delta=0.3)
+        self.assertAlmostEqual(checks["beta"]["observed_spacing_hz"], 8.0, delta=0.3)
+        self.assertEqual(checks["alpha"]["field_support"], 3)
+        self.assertEqual(checks["beta"]["field_support"], 3)
+        self.assertEqual(result["score"], 1.0)
+
+    def test_bubb_guidance_recovers_mannose_small_anomeric_j(self):
+        fields = self.screen.load_prepared(ROOT, "mannose")
+        mannose = next(
+            item for item in self.screen.load_library() if item["id"] == "d_mannose"
+        )
+        result = self.screen.score_bubb_guidance(mannose, fields, ROOT)
+
+        self.assertIsNotNone(result)
+        alpha = next(
+            item for item in result["anomeric_j_checks"] if item["form"] == "alpha"
+        )
+        self.assertAlmostEqual(alpha["observed_spacing_hz"], 1.6, delta=0.2)
+        self.assertGreaterEqual(alpha["field_support"], 2)
+        self.assertEqual(alpha["expected_range_hz"], [1.1, 2.1])
+
+    def test_expanded_known_mannose_screen_beats_shift_only_trehalose(self):
+        fields = self.screen.load_prepared(ROOT, "mannose")
+        expanded = self.screen.load_library(include_bmrb_catalog=True)
+        library = [
+            item
+            for item in expanded
+            if item["id"] == "d_mannose" or item["name"] == "D-Trehalose"
+        ]
+        ranked = self.screen.rank_candidates(fields, ROOT, library)
+
+        self.assertEqual(ranked[0]["candidate_id"], "d_mannose")
+        self.assertGreater(
+            ranked[0]["mean_score"], ranked[1]["mean_score"] + 0.05
+        )
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

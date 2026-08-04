@@ -4,6 +4,7 @@
   "candidates": [
     {
       "id": "d_xylose",
+      "bubb_profile": "xylose",
       "review_status": "approved",
       "name": "D-(+)-xylose",
       "class": "reducing_aldopentose",
@@ -19,6 +20,7 @@
     },
     {
       "id": "d_glucose",
+      "bubb_profile": "glucose",
       "review_status": "approved",
       "name": "D-glucose",
       "class": "reducing_aldohexose",
@@ -34,6 +36,7 @@
     },
     {
       "id": "d_mannose",
+      "bubb_profile": "mannose",
       "review_status": "approved",
       "name": "D-mannose",
       "class": "reducing_aldohexose",
@@ -49,6 +52,7 @@
     },
     {
       "id": "sucrose",
+      "bubb_profile": "sucrose",
       "review_status": "approved",
       "name": "Sucrose",
       "class": "nonreducing_disaccharide",
