@@ -33,3 +33,8 @@ The identity-free mystery-sugar screen is tested in
 `test_mystery_sugar_workflow.py`. It verifies that a two-anomer 1-D fingerprint
 can rank a xylose-like candidate while a reference-free fructose family stays
 in `REVIEW`.
+
+`test_carbohydrate_input_workflow.py` tests the reviewed four-file bootstrap:
+one-to-one atom/spin mapping, component and coupling references, same-sample
+multifield design, held-out validation, deterministic symmetric matrices, and
+the rule that existing provisional output is not overwritten silently.

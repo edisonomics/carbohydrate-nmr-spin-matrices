@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "molecule_id": "example_sugar",
+  "name": "Example sugar (replace every example value)",
+  "conditions": {
+    "solvent": "D2O",
+    "temperature_K": 298.15,
+    "pH": 7.0,
+    "chemical_shift_reference": "DSS, 0.00 ppm"
+  },
+  "forms": [
+    {
+      "id": "alpha_pyranose",
+      "fraction": 0.4,
+      "fraction_status": "PROVISIONAL"
+    },
+    {
+      "id": "beta_pyranose",
+      "fraction": 0.6,
+      "fraction_status": "PROVISIONAL"
+    }
+  ],
+  "chemistry": {
+    "reducing": true
+  },
+  "optimization": {
+    "shift_bound_ppm": 0.05,
+    "coupling_bound_hz": 3.0
+  }
+}

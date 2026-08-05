@@ -225,6 +225,35 @@ python3 src/common/refine_hsqc_constraints.py --molecule mannose
 This writes a candidate and a before/after multifield comparison under
 `outputs/<molecule>/hsqc_refinement`; it never replaces the configured matrix.
 
+### Build a provisional matrix for a known carbohydrate
+
+When the carbohydrate is known and the same physical sample has proton spectra
+at multiple fields, start with the reviewed four-file input workflow:
+
+```bash
+python3 src/common/bootstrap_carbohydrate.py init \
+  --molecule galactose \
+  --forms alpha_pyranose beta_pyranose
+```
+
+Fill in the molecule conditions, explicit solution forms, one-to-one proton
+assignments, coupling evidence, and spectrum manifest. Then validate and build:
+
+```bash
+python3 src/common/bootstrap_carbohydrate.py build \
+  --input-dir data/galactose/input \
+  --validate-only
+python3 src/common/bootstrap_carbohydrate.py build \
+  --input-dir data/galactose/input
+```
+
+Generated matrices and configuration files remain provisional under
+`outputs/<molecule>/bootstrap`; they never overwrite verified data. See the
+[reviewed carbohydrate input guide](docs/carbohydrate_input_workflow.md) for
+the column definitions, evidence categories, atom-mapping rules, and held-out
+validation requirements. Copyable examples are in
+[`templates/carbohydrate_input`](templates/carbohydrate_input).
+
 ### Independent J-measurement stage
 
 Chemical shifts and 2-D cross-peaks establish where the spins are and how

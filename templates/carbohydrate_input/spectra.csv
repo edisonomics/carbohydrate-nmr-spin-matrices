@@ -1,0 +1,4 @@
+key,field_mhz,path,procno,role,sample_id,tube_id,nucleus,pulse_program
+field_600,600,REPLACE_WITH_BRUKER_EXPERIMENT_DIRECTORY,1,training,sample_001,tube_001,1H,zg30
+field_900,900,REPLACE_WITH_BRUKER_EXPERIMENT_DIRECTORY,1,training,sample_001,tube_001,1H,zg30
+field_800,800,REPLACE_WITH_BRUKER_EXPERIMENT_DIRECTORY,1,validation,sample_001,tube_001,1H,zg30

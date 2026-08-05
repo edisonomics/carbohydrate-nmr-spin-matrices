@@ -1,0 +1,3 @@
+component,spin_i,spin_j,J_hz,evidence_status,source,uncertainty_hz,fit
+alpha_pyranose,alpha_H1,alpha_H2,3.5,LITERATURE_PRIOR,REPLACE_WITH_ASSIGNED_J_SOURCE,1.0,true
+beta_pyranose,beta_H1,beta_H2,8.0,LITERATURE_PRIOR,REPLACE_WITH_ASSIGNED_J_SOURCE,1.0,true

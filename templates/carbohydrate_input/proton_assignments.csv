@@ -1,0 +1,5 @@
+component,spin_id,atom_label,attached_atom,bmrb_label,shift_ppm,assignment_status,source,uncertainty_ppm,fit
+alpha_pyranose,alpha_H1,H1,C1,H1,5.20,LITERATURE_PRIOR,REPLACE_WITH_ENTRY_OR_CITATION,0.05,true
+alpha_pyranose,alpha_H2,H2,C2,H2,3.50,LITERATURE_PRIOR,REPLACE_WITH_ENTRY_OR_CITATION,0.05,true
+beta_pyranose,beta_H1,H1,C1,H1,4.60,LITERATURE_PRIOR,REPLACE_WITH_ENTRY_OR_CITATION,0.05,true
+beta_pyranose,beta_H2,H2,C2,H2,3.20,LITERATURE_PRIOR,REPLACE_WITH_ENTRY_OR_CITATION,0.05,true
